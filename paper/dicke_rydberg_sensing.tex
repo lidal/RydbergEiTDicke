@@ -19,6 +19,8 @@
 \titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.7em}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.7em}{}
 
+\setlength{\emergencystretch}{2.5em}
+
 \newcommand{\dg}{^{\dagger}}
 \newcommand{\Om}{\Omega}
 \newcommand{\Omu}{\Omega_{\mu}}
@@ -43,9 +45,10 @@ into the superradiant phase transition}
 Peng \emph{et al.} [J.\ Opt.\ Soc.\ Am.\ B \textbf{35}, 2272 (2018)] showed that placing a
 four-level Rydberg-EIT medium inside an optical cavity sharpens the Autler--Townes
 readout of a microwave electric field. Zhang \emph{et al.} [Phys.\ Rev.\ Lett.\ \textbf{110},
-090402 (2013)] showed that Rydberg polaritons in a cavity realise a generalised Dicke
-model with a superradiant phase transition. This note works out what happens when the two
-are combined \emph{and the transition itself is used as the sensing element}: the microwave
+090402 (2013)] showed that Rydberg polaritons in a cavity realise a generalised Dicke model
+whose competition between atomic interaction and atom--light coupling produces a
+superradiant solid. This note works out what happens when the two are combined \emph{and
+the transition itself is used as the sensing element}: the microwave
 field to be measured sets the dressed-polariton splitting $\wt$, and therefore moves the
 Dicke critical coupling $\lc = \tfrac12\sqrt{\omega\wt}$. We construct the effective
 Hamiltonian, identify three distinct read-out protocols, and evaluate them with exact
@@ -105,13 +108,13 @@ Sec.~\ref{sec:ising} adds the Rydberg interactions that make the link to
 Ref.~\cite{Zhang2013} explicit, Sec.~\ref{sec:prior} reviews what has already been done, and
 Sec.~\ref{sec:verdict} gives an honest assessment.
 
-\paragraph{A note on sourcing.} The literature survey in Sec.~\ref{sec:prior} was assembled
-from search-engine abstracts and metadata; the network policy of the machine this was
-prepared on blocked direct access to arXiv, APS and Optica full texts. Titles, authors,
-venues and the quoted headline numbers were each cross-checked against at least two
-independent search results, but the reasoning inside the cited papers has not been read
-first-hand. Any claim below about what a cited paper \emph{does not} do should be
-re-verified before it appears in a manuscript.
+\paragraph{A note on sourcing.} The primary sources for every claim of the form ``paper X
+does not do Y'' in Sec.~\ref{sec:prior} have been read first-hand: Refs.~\cite{Peng2018,
+Yang2020, Wang2023} (abstracts and stated results), and Refs.~\cite{Zhang2013, Ding2022,
+Wang2025} in full. Where a statement rests only on an abstract it is marked as such. The
+one substantive correction this produced is recorded in Sec.~\ref{sec:ising}: the model of
+Ref.~\cite{Zhang2013} is written in the rotating-wave approximation, so its transition is
+not the $\mathbb{Z}_2$ superradiant transition used here.
 
 \section{The model}
 \label{sec:model}
@@ -148,7 +151,13 @@ al.}~\cite{Baden2014}: two Raman channels, driven by two control fields with dif
 detunings, generate co-rotating and counter-rotating cavity--atom couplings
 $\lambda_{1,2}$ that can be tuned independently. Here this is natural rather than
 contrived, because the Rydberg-EIT ladder already \emph{is} a Raman configuration; the
-second control field is the only addition.
+second control field is the only addition. Reference~\cite{Zhang2013} makes the same point
+in its own setting: because $\ket{g}$ is not directly dipole-coupled to the Rydberg state,
+the excitation being two-photon, the no-go theorem does not apply. More directly, Ma
+\emph{et al.}~\cite{Anisotropic2025} have since given an explicit periodic-driving recipe
+for engineering the \emph{anisotropic} Dicke model in Rydberg atom arrays coupled to a
+cavity, in which the ratio of counter-rotating to rotating terms is tunable from zero to
+infinity. That is precisely the knob this proposal needs, and it is already published.
 
 The resulting effective Hamiltonian, in the frame rotating at the Raman drive frequencies
 and after adiabatic elimination of $\ket{e}$, is the Dicke model
@@ -428,9 +437,12 @@ $10^{7}$ & $0.0057$ & $0.0079$ & $0.72$\\
 \bottomrule
 \end{tabular}
 \caption{Quantum-noise-limited field sensitivity at $\varepsilon=3\times10^{-3}$,
-$\gamma/2\pi=5$~kHz. For reference, the Rydberg superheterodyne receiver of
-Ref.~\cite{Jing2020} achieves $55~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$ and the cavity-enhanced
-critical measurement of Ref.~\cite{Wang2025} reports $2.6~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$.}
+$\gamma/2\pi=5$~kHz. For reference: the Rydberg superheterodyne receiver of
+Ref.~\cite{Jing2020} achieves $55~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$; Ref.~\cite{Wang2025}
+quotes $5.1~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$ as the best sensitivity from conventional
+SNR-enhancement methods, $49$--$50.3~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$ for free-space critical
+(non-equilibrium) electrometry, and $2.6~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$ for its own
+cavity-enhanced critical measurement.}
 \end{table}
 
 Two caveats attach to every number in that table. First, Holstein--Primakoff validity
@@ -508,7 +520,10 @@ now, because it runs against the intuition that "more Rydberg physics is better"
         one bright mode. Rydberg blockade caps the number of independently excitable atoms
         per blockade volume at one, so the effective $N$ entering $\lambda=g_0\sqrt{N}$ and
         the floor \eqref{eq:floor} is $N_{\rm eff} = V_{\rm mode}/V_{\rm blockade}$, not the
-        atom number. Interactions also dephase the collective mode, raising $\gamma$.
+        atom number. Interactions also dephase the collective mode, raising $\gamma$. This
+        is not a speculative worry: the quantum Monte Carlo study of
+        Ref.~\cite{DickeIsing2025} reports exactly that, finding that Rydberg blockade
+        significantly suppresses the cavity occupation.
         The sensor wants \emph{weak} interactions --- moderate $n$, or a Rydberg pair chosen
         for small van der Waals coefficient.
   \item \textbf{For a threshold detector, they are a feature.} If the transition is driven
@@ -520,9 +535,10 @@ now, because it runs against the intuition that "more Rydberg physics is better"
         Ref.~\cite{Zhang2013}'s first-order physics is directly useful.
 \end{itemize}
 
-The recent proposal of an anisotropic Dicke--Ising model in driven Rydberg
-arrays~\cite{DickeIsing2025} covers the equilibrium phase structure of this regime; it does
-not address sensing.
+Neither Ref.~\cite{Zhang2013} nor Ref.~\cite{DickeIsing2025} addresses sensing; both are
+equilibrium phase-structure studies. What the sensing question adds is the observation
+above --- that the calibration curve is interaction-immune at the operating point --- which
+is the sharpest argument for preferring this critical point over the interaction-driven one.
 
 \section{Prior art}
 \label{sec:prior}
@@ -534,30 +550,51 @@ honest about how much of the idea is already occupied.
 
 Peng and co-workers have published a coherent programme along exactly this line.
 Reference~\cite{Peng2018}, the seed paper, places a four-level Rydberg-EIT medium in a cavity
-and reports a minimum detectable field roughly $8\times$ smaller than the cavity-free case,
-attributing the gain to cavity narrowing of the transmission features. The same group then
-moved to the collective regime: Ref.~\cite{Yang2020} uses \emph{collective Rabi splitting}
---- i.e.\ $g_0\sqrt N$ --- and reports about $7\times$ improvement over plain EIT, and
-Ref.~\cite{Wang2023} reports $196.7\times$ over a bare atomic medium and $26.2\times$ over
-weak coupling. Experimentally, Ref.~\cite{Liu2025} demonstrates 18~dB of power-sensitivity
-enhancement using a microwave (not optical) resonator.
+and reports a minimum detectable field roughly $8\times$ smaller than the cavity-free case
+and a spectral resolution improved by more than $20\times$, attributing both to cavity
+narrowing of the transmission features; it also notes robustness against control-field
+amplitude and broadband tunability. The same group then moved to the collective regime:
+Ref.~\cite{Yang2020} uses \emph{collective Rabi splitting}, obtaining a four-peak cavity
+transmission whose outer splitting varies linearly with the microwave field, and reports
+about $7\times$ improvement over plain EIT; Ref.~\cite{Wang2023} reports $196.7\times$ over
+a bare atomic medium and $26.2\times$ over weak coupling, a minimum detectable strength of
+$396.5~\mathrm{nV\,cm^{-1}}$ (a detection floor, not a per-root-hertz sensitivity), and
+resolution gains of $216\times$ and $10\times$. Experimentally, Ref.~\cite{Liu2025}
+demonstrates 18~dB of power-sensitivity enhancement using a microwave (not optical)
+resonator, and Ref.~\cite{CavitySuperhet2025} demonstrates a cavity-enhanced Rydberg
+\emph{superheterodyne} receiver with a 19~dB sensitivity gain.
 
 \textbf{Implication for the idea.} The collective-coupling step is already taken. Anything
 proposed here must be distinguished from ``$g_0\sqrt N$ in a cavity'', because
 Ref.~\cite{Yang2020} is precisely that. The distinguishing feature has to be the
-\emph{counter-rotating} terms and the phase transition they enable --- Refs.~\cite{Yang2020,
-Wang2023} are Tavis--Cummings physics in the normal phase, with no transition and no
-critical point.
+\emph{counter-rotating} terms and the phase transition they enable: on their published
+abstracts, Refs.~\cite{Yang2020,Wang2023} are normal-phase Tavis--Cummings physics --- a
+vacuum-Rabi/collective-Rabi splitting read out spectroscopically --- with no transition and
+no critical point. Note this is exactly the same rotating-wave restriction found in
+Ref.~\cite{Zhang2013} (Sec.~\ref{sec:ising}), so the counter-rotating terms are the single
+ingredient that separates this proposal from the whole of that lineage.
 
 \subsection{Critical Rydberg metrology --- the closest competitor}
 
-Ding, Liu, Shi, Guo, Mølmer and Adams~\cite{Ding2022} demonstrated many-body enhanced
+Ding, Liu, Shi, Guo, M\o{}lmer and Adams~\cite{Ding2022} demonstrated many-body enhanced
 microwave metrology at the critical point of a non-equilibrium Rydberg gas, reporting a
 Fisher information three orders of magnitude above the independent-particle value and an
 equivalent sensitivity of $49~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$. Wang, Liang, Wang and
 co-workers~\cite{Wang2025} then put that critical system inside an optical cavity, reporting
 more than two orders of magnitude of additional Fisher information and
 $2.6~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$.
+
+Both papers were read in full, and the mechanism is unambiguous. The critical point is that
+of a \emph{non-equilibrium phase transition} (NEPT) --- the optical bistability of a
+laser-driven Rydberg ensemble, arising from the competition between long-range Rydberg
+interactions, drive strength and dissipation. The ``critical point'' is operationally the
+coupling-laser frequency at which the transmission jumps, the jump direction depends on the
+scan direction, and a hysteresis loop is observed. Reference~\cite{Wang2025} works in a hot
+caesium vapour cell ($6S_{1/2}\!\to\!6P_{3/2}\!\to\!47D_{5/2}$, microwave to $48P_{3/2}$),
+uses the sharp bistability edge as a frequency discriminator, and quantifies it with the
+\emph{classical} Fisher information; the cavity's role is to steepen that edge (by
+$>10\times$ in slope, $>100\times$ in Fisher information). No light--matter phase transition
+is involved anywhere in either work.
 
 \textbf{This is the strongest prior art and it must be addressed head-on.}
 Reference~\cite{Wang2025} is ``critical Rydberg metrology in a cavity'', which is a fair
@@ -567,7 +604,8 @@ criticality:
   \item Refs.~\cite{Ding2022,Wang2025} use the \emph{dissipative, Rydberg-interaction-driven}
         phase transition (optical bistability of the driven Rydberg ensemble). Its critical
         point is set by atomic density and interaction strength, and therefore drifts with
-        temperature, density and stray fields, and cannot be tuned quickly.
+        temperature, density and stray fields, and cannot be tuned quickly. It is also
+        hysteretic, so the discriminator is scan-direction dependent.
   \item The present proposal uses the \emph{light--matter} (Dicke) transition. Its critical
         point is set by $\lambda \propto$ laser amplitude and by $\omega$, both of which are
         tunable in situ on microsecond timescales and can be servoed. The critical point
@@ -593,7 +631,12 @@ explicitly; a referee will otherwise do it for you.
 The engineered Dicke model is experimentally established: proposed by Dimer \emph{et
 al.}~\cite{Dimer2007}, realised by Baden \emph{et al.}~\cite{Baden2014} with cavity-assisted
 Raman transitions, and separately by Baumann \emph{et al.}~\cite{Baumann2010} via
-self-organisation of a BEC. Cavity Rydberg polaritons have been observed~\cite{Ningyuan2016},
+self-organisation of a BEC. For the Rydberg platform specifically,
+Ref.~\cite{Anisotropic2025} gives a periodic-driving recipe for the anisotropic Dicke model
+in a cavity-coupled Rydberg array with a counter-rotating/rotating ratio tunable from zero
+to infinity, and Ref.~\cite{DickeIsing2025} maps the resulting phase diagram by quantum
+Monte Carlo. The enabling theory is therefore in place; what is missing is the sensing
+application. Cavity Rydberg polaritons have been observed~\cite{Ningyuan2016},
 including the suppression of inhomogeneous broadening by collective strong coupling that this
 proposal needs. On the sensing side, Rydberg electrometers now approach the standard quantum
 limit in cold atoms~\cite{SciAdv2024} and reach within 1.0~dB of it in tweezer
@@ -603,18 +646,37 @@ directly~\cite{Bloqade2023}, which is the main competing route to sub-SQL electr
 
 \subsection{What appears to be unoccupied}
 
-On this survey, the following combination does not appear in the literature:
+An arXiv full-text search (queries combining \emph{Dicke}/\emph{superradiant} with
+\emph{Rydberg}, \emph{electrometry}, \emph{microwave electric field}, \emph{metrology} and
+\emph{sensing}) returns no hit that uses the light--matter superradiant transition as the
+sensing element for microwave electrometry: the Dicke$+$Rydberg literature
+(Refs.~\cite{Zhang2013,Anisotropic2025,DickeIsing2025} and the Rydberg-dressed open-Dicke
+study of Ref.~\cite{RydDressed2026}) is uniformly concerned with phase structure and
+dynamics, and the critical-electrometry literature is uniformly concerned with the
+interaction-driven NEPT. On that basis:
+
 \begin{enumerate}
-  \item Using the \emph{Dicke} (light--matter) superradiant transition, rather than a
-        Rydberg-interaction transition, as the critical resource for microwave electrometry.
-  \item The \emph{null / threshold-crossing} read-out of Protocol~B, in which the measurand
-        is the laser detuning that holds the system at threshold --- SI-traceable, and with a
-        discriminant not limited by the EIT linewidth.
-  \item The explicit gain--bandwidth characterisation of a critical Rydberg sensor, including
-        the finding that there is a wide window of gain before critical slowing down is paid
-        for.
+  \item \textbf{Unoccupied.} Using the \emph{Dicke} (light--matter) superradiant transition,
+        rather than a Rydberg-interaction transition, as the critical resource for microwave
+        electrometry --- together with the observation of Sec.~\ref{sec:ising} that this
+        makes the calibration curve immune to Rydberg interactions and to atomic density.
+  \item \textbf{Unoccupied, but with near neighbours.} The null / threshold-crossing read-out
+        of Protocol~B. The general idea of biasing at a dynamical threshold and reading out a
+        frequency is not new: Ref.~\cite{InjPull2026} pulls a self-sustained microwave
+        oscillator through its Adler synchronisation boundary and reports enhanced
+        sensitivity near synchronisation, and Ref.~\cite{Ramsey2023} exploits a sub- to
+        superradiant emission threshold for atomic state read-out. What is not in the
+        literature is the specific realisation here, in which the measurand is the
+        \emph{optical two-photon detuning required to hold a light--matter phase transition
+        at threshold}. The novelty claim should be worded at that level of specificity, not
+        as ``threshold-based sensing''.
+  \item \textbf{Unoccupied, and useful.} The explicit gain--bandwidth characterisation of a
+        critical Rydberg sensor, including the finding that there is a wide window of gain
+        before critical slowing down is paid for.
 \end{enumerate}
-Item 2 is the strongest. Items 1 and 3 are supporting.
+
+Items 1 and 3 are the safest. Item 2 is the most interesting but needs the careful wording
+above.
 
 \section{Assessment}
 \label{sec:verdict}
@@ -657,8 +719,9 @@ Rydberg electrometry}, and it is a good idea under that framing.
         raise first.
   \item \textbf{Criticality amplifies drift as well as signal.} Protocol A has no
         discrimination between $\delta\wt$ from the microwave field and $\delta\lambda$ from
-        laser intensity noise or $\delta\omega$ from cavity drift. Protocol C's IF encoding
-        and Protocol B's null lock are the mitigations, and they are not optional.
+        laser intensity noise or $\delta\omega$ from cavity drift --- formally, the critical
+        QFI matrix is sloppy~\cite{MultiCrit2026}. Protocol C's IF encoding and Protocol B's
+        null lock are the mitigations, and they are not optional.
   \item \textbf{Bandwidth.} $27.5$~kHz at the parameters used, set by $(\kappa+\gamma)/2$.
         That is fine for metrology and useless for a communications receiver. A higher-$\kappa$
         cavity trades gain for bandwidth in the usual way.
@@ -667,7 +730,8 @@ Rydberg electrometry}, and it is a good idea under that framing.
         which \emph{wants} strong interactions.
   \item \textbf{Engineering overhead.} Two Raman channels plus a high-finesse cavity plus
         (probably) cold atoms is a substantial step away from the vapour-cell simplicity that
-        makes Rydberg electrometry commercially interesting.
+        makes Rydberg electrometry commercially interesting --- though less of a step than it
+        was, given Refs.~\cite{Anisotropic2025,CavitySuperhet2025}.
   \item \textbf{Decoherence cuts off the critical scaling.} The divergence is truncated once
         the soft-mode frequency falls below $\gamma$, i.e.\ at
         $\varepsilon_{\min}\sim(\gamma/\omega)^2$; with vapour-cell linewidths this bites
@@ -687,11 +751,21 @@ Rydberg electrometry}, and it is a good idea under that framing.
         treatment of Protocol~B's threshold-location precision, since the Cramér--Rao bound is
         the wrong tool for a null measurement, and a proper account of inhomogeneous coupling
         across the cavity mode.
-  \item \textbf{Cheap experimental precursor.} Protocol~C in the \emph{Tavis--Cummings}
-        regime --- no counter-rotating terms, no phase transition --- is essentially
-        Ref.~\cite{Yang2020}'s apparatus plus a microwave LO. It would demonstrate the
-        superheterodyne-in-a-cavity gain and de-risk everything except the Dicke engineering.
-  \item \textbf{Only then} add the second Raman channel and go for the transition.
+  \item \textbf{The obvious precursor experiment is already done.} Protocol~C in the
+        \emph{Tavis--Cummings} regime (no counter-rotating terms, no phase transition)
+        is a cavity-enhanced Rydberg superheterodyne receiver, and
+        Ref.~\cite{CavitySuperhet2025} has demonstrated exactly that, with a 19~dB
+        sensitivity gain. That removes the de-risking step from the critical path: the
+        apparatus exists and the gain mechanism is confirmed. Go straight to adding the
+        counter-rotating channel, following Ref.~\cite{Anisotropic2025}.
+  \item \textbf{Address the selectivity objection formally.} The complaint that criticality
+        amplifies $\delta\lambda$ and $\delta\omega$ as readily as $\delta\wt$ is, in
+        estimation language, the statement that the critical QFI matrix is sloppy.
+        Reference~\cite{MultiCrit2026} shows for the Dicke model that multi-parameter
+        critical estimation can retain divergent precision at the cost of a reduced scaling
+        exponent, and that a Dicke dimer with photon hopping restores the optimal scaling.
+        That is the right framework in which to answer the objection rather than to concede
+        it.
 \end{enumerate}
 
 \appendix
@@ -834,6 +908,24 @@ $\gamma/2\pi=5$~kHz, $d=1774.82\,ea_0$ for $^{87}$Rb $53D_{5/2}\!\to\!54P_{3/2}$
 
 \bibitem{DickeIsing2025} \emph{Quantum phase transitions of the anisotropic Dicke--Ising model
   in driven Rydberg arrays}, Phys.~Rev.~A (2026); arXiv:2511.22230.
+
+\bibitem{Anisotropic2025} \emph{Engineering anisotropic Dicke model with dipole-dipole
+  interaction for Rydberg atom arrays in cavity}, arXiv:2503.13949 (2025).
+
+\bibitem{CavitySuperhet2025} \emph{Cavity-enhanced Rydberg atomic superheterodyne receiver},
+  arXiv:2502.20792 (2025).
+
+\bibitem{MultiCrit2026} \emph{Multi-parameter multi-critical metrology of the Dicke model},
+  arXiv:2603.03451 (2026).
+
+\bibitem{InjPull2026} \emph{Microwave power-to-frequency transduction via injection pulling
+  of a self-sustained oscillator for Rydberg superheterodyne sensing}, arXiv:2605.08535 (2026).
+
+\bibitem{Ramsey2023} \emph{Collectively enhanced Ramsey readout by cavity sub- to
+  superradiant transition}, arXiv:2306.12544 (2023).
+
+\bibitem{RydDressed2026} \emph{Dissipative dynamics and superradiant continuous time crystal
+  in a Rydberg-dressed Dicke system}, arXiv:2604.18119 (2026).
 
 \end{thebibliography}
 

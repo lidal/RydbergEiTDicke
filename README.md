@@ -64,12 +64,33 @@ python3 code/make_figs.py && python3 code/make_fig4.py
 cd paper && pdflatex dicke_rydberg_sensing.tex
 ```
 
-## Caveat on the literature review
+## Literature review — primary sources read
 
-The survey in §6 was assembled from search-engine abstracts and metadata; direct access to
-arXiv/APS/Optica full texts was blocked by network policy on the machine used. Titles,
-authors, venues and quoted headline numbers were cross-checked against at least two
-independent search results, but the reasoning inside cited papers has not been read
-first-hand. In particular, the closest prior art — Ding *et al.*, Nat. Phys. **18**, 1447
-(2022) and Wang *et al.*, Sci. China Phys. Mech. Astron. (2025), arXiv:2502.19761 — should be
-read in full before any novelty claim is made in a manuscript.
+The survey in §6 rests on full texts, not abstracts. Read in full: Zhang *et al.*
+(arXiv:1207.4238), Ding *et al.* (arXiv:2207.11947), Wang *et al.* (arXiv:2502.19761).
+Read as published abstracts with stated results: Peng 2018, Yang 2020, Wang 2023 (JOSA B,
+paywalled full text). Novelty checked by arXiv full-text search across
+Dicke/superradiant × Rydberg/electrometry/metrology/sensing.
+
+Three findings changed the write-up:
+
+1. **Zhang *et al.* is rotating-wave.** Their coupling `(g/√N)Σ(b†aψ + h.c.)` conserves
+   excitation number (hence the chemical potential in their phase diagram), so their
+   "generalised Dicke model" is Tavis–Cummings-type and their superradiance is a U(1)
+   polariton condensation — *not* the Z₂ transition at `λ_c = ½√(ωω̃₀)`. Adding the
+   counter-rotating terms is a real extension, not a re-derivation. This strengthens the
+   proposal but had to be stated correctly.
+2. **The enabling engineering already exists.** arXiv:2503.13949 gives a periodic-driving
+   recipe for the anisotropic Dicke model in cavity-coupled Rydberg arrays with the
+   counter-rotating/rotating ratio tunable 0→∞; arXiv:2511.22230 maps the phase diagram by
+   QMC (and independently confirms that Rydberg blockade suppresses cavity occupation —
+   the `N_eff` warning in §5). The two-sublattice mean field here is a consistency check
+   against that QMC, and agrees on the order of all four transitions.
+3. **The recommended precursor experiment is already done.** arXiv:2502.20792 demonstrates
+   a cavity-enhanced Rydberg superheterodyne receiver with 19 dB gain — so the de-risking
+   step is off the critical path and the project can go straight to the Dicke step.
+
+Near neighbours to the null read-out (arXiv:2605.08535, Adler injection pulling near
+synchronisation; arXiv:2306.12544, sub-to-superradiant threshold for Ramsey readout) mean
+the novelty claim is worded narrowly: what is unoccupied is reading the measurand as the
+*optical two-photon detuning that holds a light–matter phase transition at threshold*.
