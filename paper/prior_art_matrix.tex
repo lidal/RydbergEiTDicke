@@ -1,0 +1,180 @@
+\documentclass[10pt,a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[landscape,margin=1.4cm,top=1.2cm,bottom=1.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage[colorlinks=true,linkcolor=Navy,citecolor=Navy,urlcolor=Navy]{hyperref}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+
+\definecolor{Navy}{RGB}{27,73,101}
+\definecolor{Rust}{RGB}{169,68,66}
+\definecolor{Teal}{RGB}{77,144,142}
+\definecolor{Gold}{RGB}{224,159,62}
+\definecolor{StrandA}{RGB}{236,241,244}
+\definecolor{StrandB}{RGB}{247,240,235}
+\definecolor{StrandC}{RGB}{237,244,243}
+\definecolor{Ours}{RGB}{252,244,224}
+
+\newcommand{\yes}{\textcolor{Teal}{\textbf{\checkmark}}}
+\newcommand{\no}{\textcolor{black!30}{\textbf{--}}}
+\newcommand{\nokey}{\textcolor{Rust}{\textbf{--}}}
+\newcommand{\yeskey}{\textcolor{Rust}{\textbf{\checkmark}}}
+\newcommand{\sub}[1]{{\footnotesize\textcolor{black!55}{#1}}}
+\newcommand{\strand}[2]{%
+  \multicolumn{10}{@{}l@{}}{\rule{0pt}{3.6ex}\textbf{\textcolor{Navy}{#1}}\ \ \sub{#2}}\\[2pt]}
+
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Prior art: who has built which piece}\\[4pt]
+{\large\color{Navy} Component matrix for \emph{critical Dicke electrometry}}\\[6pt]
+{\footnotesize Extending intracavity Rydberg-EIT microwave sensing (Peng \emph{et al.}, JOSA B \textbf{35}, 2272)
+into the superradiant phase transition (Zhang \emph{et al.}, PRL \textbf{110}, 090402).\quad\today}
+\end{center}
+
+\vspace{-2mm}
+\noindent{\footnotesize
+\textbf{Legend:}\ \ \yes\ present \quad \no\ absent \quad
+\textcolor{Rust}{\textbf{--}}\,/\,\textcolor{Rust}{\textbf{\checkmark}}\ \emph{the cell that decides the strand.}\ \
+\textbf{CRT} = counter-rotating light--matter terms (their presence is what permits a $\mathbb{Z}_2$ superradiant transition).\ \
+\textbf{MW = measurand} means the microwave field is the quantity being measured, not merely a drive.}
+
+\vspace{2mm}
+
+{\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.7cm} ccc c >{\raggedright\arraybackslash}p{2.9cm} c c c >{\raggedright\arraybackslash}p{4.6cm}@{}}
+\toprule
+\textbf{Paper} & \textbf{EIT} & \textbf{Cav.} & \textbf{$g\sqrt N$} & \textbf{CRT} &
+\textbf{Transition} & \textbf{Ryd.\ int.} & \textbf{MW = meas.} & \textbf{Th/Exp} & \textbf{Headline result} \\
+\midrule
+
+\strand{A.\ Cavity + Rydberg electrometry}{everything but the counter-rotating terms $\Rightarrow$ no transition at all}
+\rowcolor{StrandA} Peng 2018 \sub{JOSA B 35, 2272}\ \textcolor{Gold}{$\bigstar$} & \yes & \yes & \no\,\sub{weak} & \nokey & \nokey & \no & \yes & Th & $8\times$ lower detectable field; $>\!20\times$ resolution\\
+Yang 2020 \sub{JOSA B 37, 1664} & \yes & \yes & \yes\,\sub{coll.\ Rabi} & \nokey & \nokey & \no & \yes & Th & $7\times$ over plain EIT; four-peak transmission\\
+\rowcolor{StrandA} Wang 2023 \sub{JOSA B 40, 2604} & \yes & \yes & \yes\,\sub{strong} & \nokey & \nokey & \no & \yes & Th & $196.7\times$ / $26.2\times$; floor $396.5$\,nV\,cm$^{-1}$\\
+Jing 2020 \sub{Nat.\ Phys.\ 16, 911} & \yes & \no & \no & \no & \no & \no & \yes\,\sub{superhet} & Exp & $55$\,nV\,cm$^{-1}$Hz$^{-1/2}$\\
+\rowcolor{StrandA} Liu 2025 \sub{Chin.\ Phys.\ Lett.\ 42, 053201} & \yes & \no\,\sub{\emph{MW} cav.} & \no & \no & \no & \no & \yes & Exp & 18\,dB power sensitivity\\
+arXiv:2502.20792 \sub{cavity superhet} & \yes & \yes & \yes & \nokey & \nokey & \no & \yes\,\sub{superhet} & Exp & 19\,dB sensitivity gain\\
+
+\strand{B.\ Critical Rydberg electrometry}{has criticality \emph{and} sensing --- but the interaction-driven transition, not light--matter}
+\rowcolor{StrandB} Ding 2022 \sub{Nat.\ Phys.\ 18, 1447} & \yes & \no & \no & \nokey & \yes\ \sub{NEPT / bistability} & \yes\,\sub{drives it} & \yes & Exp & FI $\times10^3$ vs.\ independent particles; $49$\,nV\,cm$^{-1}$Hz$^{-1/2}$\\
+Wang 2025 \sub{arXiv:2502.19761} & \yes & \yes & \no & \nokey & \yes\ \sub{NEPT / bistability} & \yes\,\sub{drives it} & \yes & Exp & classical FI $\times100$ from cavity; $2.6$\,nV\,cm$^{-1}$Hz$^{-1/2}$\\
+
+\strand{C.\ Dicke model / phase structure}{has the transition, the cavity and the interactions --- and senses nothing}
+\rowcolor{StrandC} Dimer 2007 / Baden 2014 \sub{PRA 75, 013804 / PRL 113, 020408} & \no & \yes & \yes & \yes\,\sub{Raman} & \yes\ \sub{$\mathbb{Z}_2$ Dicke} & \no & \nokey & Th / Exp & Engineered Dicke QPT via cavity-assisted Raman\\
+Zhang 2013 \sub{PRL 110, 090402}\ \textcolor{Gold}{$\bigstar$} & \sub{2-photon} & \yes & \yes & \nokey\,\sub{\textbf{RWA}} & \yes\ \sub{$U(1)$ polariton + SRS} & \yes & \nokey & Th (QMC) & Superradiant solid; first-order boundaries\\
+\rowcolor{StrandC} arXiv:2503.13949 \sub{anisotropic engineering} & \no & \yes & \yes & \yeskey\,\sub{tunable $0\!\to\!\infty$} & \yes & \yes & \nokey & Th & Periodic-driving recipe for the anisotropic Dicke model\\
+arXiv:2511.22230 \sub{Dicke--Ising QMC} & \no & \yes & \yes & \yes & \yes\ \sub{SR / SRS / Solid-$\tfrac12$} & \yes & \nokey\,\sub{MW = \emph{drive}} & Th (QMC) & Orders of all transitions; blockade suppresses cavity occupation\\
+\rowcolor{StrandC} Garbe 20/22, Rams 18, Gietka 21/22, Gyhm 25 & \no & \yes & \yes & \yes & \yes & \no & \no\,\sub{generic param.} & Th & Critical-metrology scaling --- and its no-gos\\
+
+\strand{D.\ This proposal}{the one combination nobody occupies}
+\rowcolor{Ours} \textbf{Critical Dicke electrometry} & \yes & \yes & \yes & \yeskey & \yes\ \sub{$\mathbb{Z}_2$ Dicke} & \sub{optional} & \yeskey\,\sub{\textbf{sets} $\lambda_c$} & Th & $\lambda_c=\tfrac12\sqrt{\omega\tilde\omega_0}$ is a function of the measurand\\
+\bottomrule
+\end{tabular}}
+
+\vspace{1mm}
+\noindent{\footnotesize \textcolor{Gold}{$\bigstar$} = the two seed papers this project starts from.\hfill Full discussion in \texttt{dicke\_rydberg\_sensing.pdf}, \S6.\ \ Reading notes and references overleaf.}
+
+\newpage
+
+\section*{\color{Navy} Reading the matrix}
+
+Every individual column is occupied, and each strand is exactly \emph{one column} short of the proposal.
+
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+  \item \textbf{Strand A} lacks counter-rotating terms, so there is no transition at all. It stops at a
+        collective Rabi splitting read out spectroscopically.
+  \item \textbf{Strand B} has criticality and sensing, but its critical point is set by atomic density and
+        interaction strength: it drifts with temperature and stray fields, it is hysteretic (the discriminator
+        depends on scan direction), and it cannot be tuned quickly.
+  \item \textbf{Strand C} has the genuine $\mathbb{Z}_2$ Dicke transition and does no sensing. The near-miss is
+        arXiv:2511.22230, where microwave fields are \emph{in} the setup --- but as the drive that engineers the
+        model, never as the measured quantity.
+\end{itemize}
+
+\begin{tcolorbox}[colback=Ours,colframe=Gold,boxrule=0.8pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
+\textbf{The empty cell that defines the project} is the intersection of the last two columns --- a
+$\mathbb{Z}_2$ Dicke transition whose critical point \emph{is} the measurand:
+\[
+  \lambda_c=\tfrac12\sqrt{\omega\,\tilde\omega_0}\,,\qquad
+  \tilde\omega_0=\delta+\Omega_\mu/2\,,\qquad
+  \Omega_\mu=dE_\mu/\hbar .
+\]
+\end{tcolorbox}
+
+\vspace{-1mm}
+\subsection*{\color{Navy} Two cells worth staring at}
+
+\begin{itemize}[leftmargin=1.4em,itemsep=4pt]
+  \item \textbf{Zhang 2013 $\rightarrow$ \nokey\,(RWA).} Their coupling
+        $(g/\sqrt N)\sum_i(b_i^\dagger a_i\psi+\mathrm{H.c.})$ conserves excitation number --- which is why their
+        phase diagram is drawn against a chemical potential. Their ``generalised Dicke model'' is therefore of
+        Tavis--Cummings type and their superradiance is a $U(1)$ polariton condensation, not the $\mathbb{Z}_2$
+        transition this proposal needs. \emph{The seed paper is one column short of the required model, so the
+        extension is real rather than a re-derivation.}
+  \item \textbf{arXiv:2503.13949 $\rightarrow$ \yeskey\,(tunable $0\!\to\!\infty$).} The enabling technology,
+        already published --- and it fills exactly the cell Zhang 2013 leaves empty, for the Rydberg platform
+        specifically.
+\end{itemize}
+
+\noindent The same RWA restriction runs through the whole of strand A. \textbf{Counter-rotating terms are the
+single ingredient separating this proposal from that entire lineage.}
+
+\vspace{1mm}
+\subsection*{\color{Navy} References}
+
+{\footnotesize
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=1.1em,itemsep=0.5pt,label={}]
+\item Y.~Peng \emph{et al.}, \emph{Cavity-enhanced microwave electric field measurement using Rydberg atoms},
+      J.~Opt.~Soc.~Am.~B \textbf{35}, 2272 (2018). \href{https://doi.org/10.1364/JOSAB.35.002272}{doi}
+\item A.~Yang \emph{et al.}, \emph{Enhanced measurement of microwave electric fields with collective Rabi
+      splitting}, J.~Opt.~Soc.~Am.~B \textbf{37}, 1664 (2020).
+\item Y.~Wang \emph{et al.}, \emph{Rydberg-atom-based measurements of microwave electric fields with cavity QED},
+      J.~Opt.~Soc.~Am.~B \textbf{40}, 2604 (2023).
+\item M.~Jing \emph{et al.}, \emph{Atomic superheterodyne receiver based on microwave-dressed Rydberg
+      spectroscopy}, Nat.~Phys.~\textbf{16}, 911 (2020). \href{https://arxiv.org/abs/1902.11063}{arXiv:1902.11063}
+\item \emph{Cavity-enhanced Rydberg atom microwave receiver}, Chin.~Phys.~Lett.~\textbf{42}, 053201 (2025).
+      \href{https://arxiv.org/abs/2404.06915}{arXiv:2404.06915}
+\item \emph{Cavity-enhanced Rydberg atomic superheterodyne receiver}.
+      \href{https://arxiv.org/abs/2502.20792}{arXiv:2502.20792}
+\item D.-S.~Ding, Z.-K.~Liu, B.-S.~Shi, G.-C.~Guo, K.~M\o{}lmer, C.~S.~Adams, \emph{Enhanced metrology at the
+      critical point of a many-body Rydberg atomic system}, Nat.~Phys.~\textbf{18}, 1447 (2022).
+      \href{https://arxiv.org/abs/2207.11947}{arXiv:2207.11947}
+\item Q.~Wang \emph{et al.}, \emph{High-precision measurement of microwave electric field by cavity-enhanced
+      critical behavior\ldots}, Sci.~China Phys.~Mech.~Astron.~(2025).
+      \href{https://arxiv.org/abs/2502.19761}{arXiv:2502.19761}
+\item F.~Dimer, B.~Estienne, A.~S.~Parkins, H.~J.~Carmichael, Phys.~Rev.~A \textbf{75}, 013804 (2007).
+\item M.~P.~Baden \emph{et al.}, \emph{Realization of the Dicke model using cavity-assisted Raman transitions},
+      Phys.~Rev.~Lett.~\textbf{113}, 020408 (2014); erratum \textbf{118}, 199901 (2017).
+\item X.-F.~Zhang, Q.~Sun, Y.-C.~Wen, W.-M.~Liu, S.~Eggert, A.-C.~Ji, \emph{Rydberg polaritons in a cavity: a
+      superradiant solid}, Phys.~Rev.~Lett.~\textbf{110}, 090402 (2013).
+      \href{https://arxiv.org/abs/1207.4238}{arXiv:1207.4238}
+\item \emph{Engineering anisotropic Dicke model with dipole-dipole interaction for Rydberg atom arrays in
+      cavity}. \href{https://arxiv.org/abs/2503.13949}{arXiv:2503.13949}
+\item \emph{Quantum phase transitions of the anisotropic Dicke--Ising model in driven Rydberg arrays},
+      Phys.~Rev.~A (2026). \href{https://arxiv.org/abs/2511.22230}{arXiv:2511.22230}
+\item L.~Garbe, M.~Bina, A.~Keller, M.~G.~A.~Paris, S.~Felicetti, Phys.~Rev.~Lett.~\textbf{124}, 120504 (2020).
+\item L.~Garbe, O.~Abah, S.~Felicetti, R.~Puebla, Quantum Sci.~Technol.~\textbf{7}, 035010 (2022).
+      \href{https://arxiv.org/abs/2110.04144}{arXiv:2110.04144}
+\item M.~M.~Rams \emph{et al.}, \emph{At the limits of criticality-based quantum metrology}, Phys.~Rev.~X
+      \textbf{8}, 021022 (2018). \href{https://arxiv.org/abs/1702.05660}{arXiv:1702.05660}
+\item J.-Y.~Gyhm, H.~Kwon, M.-J.~Hwang, \emph{Fundamental scaling limit in critical quantum metrology}.
+      \href{https://arxiv.org/abs/2506.19003}{arXiv:2506.19003}
+\end{itemize}
+\end{multicols}}
+
+\end{document}
