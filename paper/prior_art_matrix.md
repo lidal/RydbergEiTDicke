@@ -54,13 +54,17 @@ Has the transition, the cavity and the Rydberg interactions — and senses nothi
 | **Zhang 2013** — PRL **110**, 090402 *(seed)* | two-photon | ✓ | ✓ | **— (RWA)** | ✓ **U(1) polariton + SRS** | ✓ | **—** | Th (QMC) | Superradiant solid; first-order boundaries |
 | **arXiv:2503.13949** — anisotropic engineering | — | ✓ | ✓ | ✓ *(tunable 0→∞)* | ✓ | ✓ | **—** | Th | Periodic-driving recipe for anisotropic Dicke |
 | **arXiv:2511.22230** — Dicke–Ising QMC | — | ✓ | ✓ | ✓ | ✓ **SR / SRS / Solid-½** | ✓ | **— *(MW = drive)*** | Th (QMC) | Orders of all transitions; blockade suppresses cavity occupation |
+| **arXiv:1611.00797** — steady-state SR with Rydberg polaritons | — | ✓ | ✓ | — | ✓ **lasing threshold** | ✓ | **—** | Th | Rydberg nonlinearity strongly modifies the superradiance threshold |
 | **Garbe 2020/2022**, **Rams 2018**, **Gietka 2021/22**, **Gyhm 2025** | — | ✓ | ✓ | ✓ | ✓ | — | — *(generic parameter)* | Th | Critical metrology scaling — and its no-gos |
 
 ## D. What this proposal adds
 
-| | EIT ladder | Optical cavity | Collective g√N | Counter-rot. | Transition | Rydberg int. | MW = measurand | Th/Exp |
-|---|---|---|---|---|---|---|---|---|
-| **Critical Dicke electrometry** | ✓ | ✓ | ✓ | ✓ | ✓ **Z₂ Dicke** | optional | ✓ **sets λ_c** | Th |
+Same protocol as strand B, with a **light–matter** transition in place of the interaction-driven one.
+
+| | EIT ladder | Optical cavity | Collective g√N | Counter-rot. | Transition | Rydberg int. | MW = measurand | Th/Exp | Headline |
+|---|---|---|---|---|---|---|---|---|---|
+| **Route I** — U(1) lasing *(after Zhang 2013)* | ✓ | ✓ | ✓ | — *(+ repump)* | ✓ **U(1) lasing** | optional | ✓ **sets G²_th** | Th | cavity drift rejected 101×; 0.070 nV cm⁻¹Hz^−½ at N=10⁶ |
+| **Route II** — Z₂ Dicke *(after Dimer/Baden)* | ✓ | ✓ | ✓ | ✓ | ✓ **Z₂ Dicke** | optional | ✓ **sets λ_c** | Th | ε⁻¹ gain; −10.3 dB self-squeezing |
 
 ---
 
@@ -72,15 +76,23 @@ Every individual column is occupied, and each strand is exactly one column short
 - **Strand B** has criticality and sensing, but the critical point is set by atomic density
   and interaction strength — it drifts with temperature and stray fields, is hysteretic, and
   cannot be tuned quickly.
-- **Strand C** has the genuine Z₂ Dicke transition and does no sensing. The near-miss is
-  arXiv:2511.22230: microwave fields are *in* the setup, but as the drive that engineers the
-  model, never as the measured quantity.
+- **Strand C** has the light–matter transitions and does no sensing. Two near-misses:
+  arXiv:2511.22230, where microwave fields are *in* the setup but as the drive that engineers
+  the model rather than the measured quantity; and arXiv:1611.00797, which puts a Rydberg
+  medium at a superradiance threshold in a cavity, but to generate nonclassical light.
+- **Strands B and D are the same phase diagram.** Turning up the Rydberg interaction in
+  Route I folds its threshold over into optical bistability — back into strand B. The
+  proposal is a move between corners of one model, not a competing claim.
 
-**The empty cell that defines the project** is the intersection of the last two columns —
-a Z₂ Dicke transition whose critical point *is* the measurand:
+**The empty cell that defines the project** is the intersection of the last two columns — a
+*light–matter* transition whose phase boundary *is* the measurand. Both flavours depend on the
+same dressed splitting, so both are sensing curves:
 
 ```
-λ_c = ½ √(ω ω̃₀),    ω̃₀ = δ + Ω_μ/2,    Ω_μ = d E_μ / ħ
+ω̃₀ = δ + Ω_μ/2,   Ω_μ = d E_μ / ħ
+
+U(1):  G²_th = κΓ [1 + (ω_cav − ω̃₀)² / (κ+Γ)²]
+Z₂ :   λ_c   = ½ √(ω ω̃₀)
 ```
 
 Two cells worth staring at:

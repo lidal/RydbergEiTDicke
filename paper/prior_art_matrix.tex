@@ -29,10 +29,10 @@
 \newcommand{\yeskey}{\textcolor{Rust}{\textbf{\checkmark}}}
 \newcommand{\sub}[1]{{\footnotesize\textcolor{black!55}{#1}}}
 \newcommand{\strand}[2]{%
-  \multicolumn{10}{@{}l@{}}{\rule{0pt}{3.6ex}\textbf{\textcolor{Navy}{#1}}\ \ \sub{#2}}\\[2pt]}
+  \multicolumn{10}{@{}l@{}}{\rule{0pt}{3.1ex}\textbf{\textcolor{Navy}{#1}}\ \ \sub{#2}}\\[2pt]}
 
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.04}
 
 \pagestyle{empty}
 
@@ -54,8 +54,8 @@ into the superradiant phase transition (Zhang \emph{et al.}, PRL \textbf{110}, 0
 
 \vspace{2mm}
 
-{\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.7cm} ccc c >{\raggedright\arraybackslash}p{2.9cm} c c c >{\raggedright\arraybackslash}p{4.6cm}@{}}
+{\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.8cm} ccc c >{\raggedright\arraybackslash}p{2.9cm} c c c >{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 \textbf{Paper} & \textbf{EIT} & \textbf{Cav.} & \textbf{$g\sqrt N$} & \textbf{CRT} &
 \textbf{Transition} & \textbf{Ryd.\ int.} & \textbf{MW = meas.} & \textbf{Th/Exp} & \textbf{Headline result} \\
@@ -80,8 +80,11 @@ Zhang 2013 \sub{PRL 110, 090402}\ \textcolor{Gold}{$\bigstar$} & \sub{2-photon} 
 arXiv:2511.22230 \sub{Dicke--Ising QMC} & \no & \yes & \yes & \yes & \yes\ \sub{SR / SRS / Solid-$\tfrac12$} & \yes & \nokey\,\sub{MW = \emph{drive}} & Th (QMC) & Orders of all transitions; blockade suppresses cavity occupation\\
 \rowcolor{StrandC} Garbe 20/22, Rams 18, Gietka 21/22, Gyhm 25 & \no & \yes & \yes & \yes & \yes & \no & \no\,\sub{generic param.} & Th & Critical-metrology scaling --- and its no-gos\\
 
-\strand{D.\ This proposal}{the one combination nobody occupies}
-\rowcolor{Ours} \textbf{Critical Dicke electrometry} & \yes & \yes & \yes & \yeskey & \yes\ \sub{$\mathbb{Z}_2$ Dicke} & \sub{optional} & \yeskey\,\sub{\textbf{sets} $\lambda_c$} & Th & $\lambda_c=\tfrac12\sqrt{\omega\tilde\omega_0}$ is a function of the measurand\\
+\rowcolor{StrandC} arXiv:1611.00797 \sub{steady-state SR with Rydberg polaritons} & \no & \yes & \yes & \no & \yes\ \sub{lasing threshold} & \yes & \nokey & Th & Rydberg nonlinearity strongly modifies the superradiance threshold\\
+
+\strand{D.\ This proposal}{the same protocol as strand B, with a \emph{light--matter} transition in place of the interaction-driven one}
+\rowcolor{Ours} \textbf{Route I} --- $U(1)$ lasing \sub{after Zhang 2013} & \yes & \yes & \yes & \no\,\sub{+ repump} & \yeskey\ \sub{$U(1)$ lasing} & \sub{optional} & \yeskey\,\sub{\textbf{sets} $G^2_{\rm th}$} & Th & cavity drift rejected $101\times$; $0.070$\,nV\,cm$^{-1}$Hz$^{-1/2}$ at $N{=}10^6$\\
+\rowcolor{Ours} \textbf{Route II} --- $\mathbb{Z}_2$ Dicke \sub{after Dimer/Baden} & \yes & \yes & \yes & \yeskey & \yeskey\ \sub{$\mathbb{Z}_2$ Dicke} & \sub{optional} & \yeskey\,\sub{\textbf{sets} $\lambda_c$} & Th & $\varepsilon^{-1}$ gain; $-10.3$\,dB self-squeezing\\
 \bottomrule
 \end{tabular}}
 
@@ -94,31 +97,39 @@ arXiv:2511.22230 \sub{Dicke--Ising QMC} & \no & \yes & \yes & \yes & \yes\ \sub{
 
 Every individual column is occupied, and each strand is exactly \emph{one column} short of the proposal.
 
-\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+\begin{itemize}[leftmargin=1.4em,itemsep=1pt]
   \item \textbf{Strand A} lacks counter-rotating terms, so there is no transition at all. It stops at a
         collective Rabi splitting read out spectroscopically.
   \item \textbf{Strand B} has criticality and sensing, but its critical point is set by atomic density and
         interaction strength: it drifts with temperature and stray fields, it is hysteretic (the discriminator
         depends on scan direction), and it cannot be tuned quickly.
-  \item \textbf{Strand C} has the genuine $\mathbb{Z}_2$ Dicke transition and does no sensing. The near-miss is
-        arXiv:2511.22230, where microwave fields are \emph{in} the setup --- but as the drive that engineers the
-        model, never as the measured quantity.
+  \item \textbf{Strand C} has the light--matter transitions and does no sensing. Two near-misses:
+        arXiv:2511.22230, where microwave fields are \emph{in} the setup but as the drive that engineers the
+        model rather than the measured quantity; and arXiv:1611.00797, which puts a Rydberg medium at a
+        superradiance threshold in a cavity, but to generate nonclassical light.
+  \item \textbf{Strands B and D are the same phase diagram.} Turning up the Rydberg interaction in Route~I
+        folds its threshold over into optical bistability --- i.e.\ back into strand B. The proposal is a move
+        between corners of one model, not a competing claim.
 \end{itemize}
 
 \begin{tcolorbox}[colback=Ours,colframe=Gold,boxrule=0.8pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
-\textbf{The empty cell that defines the project} is the intersection of the last two columns --- a
-$\mathbb{Z}_2$ Dicke transition whose critical point \emph{is} the measurand:
+\textbf{The empty cell that defines the project} is the intersection of the last two columns ---
+a \emph{light--matter} transition whose phase boundary \emph{is} the measurand. Both flavours
+depend on the same dressed splitting, so both are sensing curves:
 \[
-  \lambda_c=\tfrac12\sqrt{\omega\,\tilde\omega_0}\,,\qquad
-  \tilde\omega_0=\delta+\Omega_\mu/2\,,\qquad
-  \Omega_\mu=dE_\mu/\hbar .
+  \tilde\omega_0=\delta+\Omega_\mu/2\,,\qquad \Omega_\mu=dE_\mu/\hbar\,;
+  \qquad
+  G^2_{\rm th}=\kappa\Gamma\!\left[1+\tfrac{(\omega_{\rm cav}-\tilde\omega_0)^2}{(\kappa+\Gamma)^2}\right]
+  \ \ (U(1)),
+  \qquad
+  \lambda_c=\tfrac12\sqrt{\omega\,\tilde\omega_0}\ \ (\mathbb{Z}_2).
 \]
 \end{tcolorbox}
 
 \vspace{-1mm}
 \subsection*{\color{Navy} Two cells worth staring at}
 
-\begin{itemize}[leftmargin=1.4em,itemsep=4pt]
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
   \item \textbf{Zhang 2013 $\rightarrow$ \nokey\,(RWA).} Their coupling
         $(g/\sqrt N)\sum_i(b_i^\dagger a_i\psi+\mathrm{H.c.})$ conserves excitation number --- which is why their
         phase diagram is drawn against a chemical potential. Their ``generalised Dicke model'' is therefore of
@@ -136,9 +147,9 @@ single ingredient separating this proposal from that entire lineage.}
 \vspace{1mm}
 \subsection*{\color{Navy} References}
 
-{\footnotesize
+{\scriptsize
 \begin{multicols}{2}
-\begin{itemize}[leftmargin=1.1em,itemsep=0.5pt,label={}]
+\begin{itemize}[leftmargin=1.1em,itemsep=0pt,parsep=0pt,label={}]
 \item Y.~Peng \emph{et al.}, \emph{Cavity-enhanced microwave electric field measurement using Rydberg atoms},
       J.~Opt.~Soc.~Am.~B \textbf{35}, 2272 (2018). \href{https://doi.org/10.1364/JOSAB.35.002272}{doi}
 \item A.~Yang \emph{et al.}, \emph{Enhanced measurement of microwave electric fields with collective Rabi
