@@ -78,7 +78,20 @@ $\varepsilon^{-1}$ transduction gain and $10$~dB of self-generated squeezing.
 Both routes reach the same $\sqrt{\Gamma/N}$ floor --- criticality buys gain and drift
 immunity, not a new scaling law. Adding Rydberg interactions to Route~I bends the threshold
 back into optical bistability, which shows that the incumbent transition and the proposed one
-are two limits of a single model, with the superradiant solid as the coexistence region.
+are two limits of a single model, with the superradiant solid as the coexistence region. A
+further difference from the incumbent is that both routes here keep the resonant
+Autler--Townes coupling, so the scale factor is exactly $-d/2\hbar$; Refs.~\cite{Ding2022,
+Wang2025} couple the field through a \emph{quadratic} AC Stark shift about a nonzero bias,
+with a fitted scale factor.
+
+\medskip\noindent
+Two caveats are load-bearing and stated where they arise. Route~I assumes one can invert a
+ground-to-dressed-Rydberg transition; no superradiant laser has been built on anything but a
+narrow optical transition, and the alternative architecture costs sensitivity
+(Sec.~\ref{sec:u1}). For Route~II the dominant error is not quantum but technical: the Raman
+pump light shift adds directly to $\wt$, so $10^{-3}$ intensity noise on a $1$~MHz shift gives
+$0.88~\mu$V/cm of drift, some $5\times10^3$ times the one-second quantum floor
+(Sec.~\ref{sec:budget}).
 \end{abstract}
 
 \tableofcontents
@@ -217,6 +230,44 @@ Route~II needs, and it is already published. Hardware cost: a second Raman chann
 
 In both cases the measurand enters only through $\wt$, which is what makes
 Eq.~\eqref{eq:key} a sensing curve.
+
+\subsection{Which frequency the sensor listens to}
+\label{sec:tuning}
+
+Two tuning questions are easy to conflate, and they have different answers.
+
+\paragraph{The carrier is set by the Rydberg pair, exactly as in conventional electrometry.}
+Neither route changes this. Transition frequencies scale as $n^{-3}$, so the accessible range
+runs from hundreds of GHz at low $n$ to sub-GHz at high $n$ --- Ref.~\cite{Ding2022} uses
+$51D_{3/2}\!\to\!52P_{1/2}$ at $16.6$~GHz, Ref.~\cite{Wang2025} $47D_{5/2}\!\to\!48P_{3/2}$,
+and the worked example here $53D_{5/2}\!\to\!54P_{3/2}$. The available transitions form a
+\emph{comb}, not a continuum: at $n\approx50$ the $\Delta n=1$ teeth are spaced by roughly
+$3\times(2\mathrm{Ry}/n^4)$, a few GHz, and other $\ell$ and $\Delta n$ densify it without
+closing the gaps. Filling them is solved technology: Ref.~\cite{Floquet2024} AC-Stark-tunes
+$78S_{1/2}\!\to\!78P_{1/2}$ with a $70$~MHz field applied \emph{outside} the vapour cell and
+uses Floquet sidebands to reach $1.172$~GHz of continuous coverage; DC-Stark tuning is the
+other standard route~\cite{DCStark2026}.
+
+\paragraph{The bias point is set optically, and that is the new knob.} Where on the sensing
+curve the system sits is fixed by the two-photon detuning $\delta$ (and, in Route~I, the
+cavity detuning $\omega_{\rm cav}$) --- independently of the carrier selection above. Since
+$\wt=\delta+\Omu/2$ must sit at a specific small value, $\delta$ has to track the microwave
+amplitude to stay biased: the lock \emph{is} the measurement, which is Protocol~B.
+Refs.~\cite{Ding2022,Wang2025} make the same statement about their own systems, noting that
+the sensitive operating field ``can be tuned by the coupling detuning''.
+
+\paragraph{A tension specific to Route I.} Route~I depends on $\Gamma\ll\kappa$: the drift
+rejection \emph{is} $\kappa/\Gamma$ and the floor is $\sqrt{2\Gamma/N}$, so broadening
+$\Gamma$ costs twice. Rydberg polarizabilities scale as $n^7$ --- of order
+$10^3~\mathrm{MHz/(V/cm)^2}$ for Rb $nS$ at $n\approx50$ --- so a $1$~GHz DC-Stark shift needs
+$\sim0.8$~V/cm, where the slope $2\alpha E$ is a few MHz per (mV/cm). A field inhomogeneity of
+even $1$~mV/cm across the ensemble then broadens the transition by megahertz, two orders above
+the $20$~kHz Route~I assumes. \emph{DC-Stark gap-filling is therefore largely incompatible
+with Route~I}, which should sit on a natural Rydberg resonance, or use the externally applied
+AC-Stark/Floquet scheme of Ref.~\cite{Floquet2024} where the tuning field is more uniform.
+Route~II is more forgiving: $\gamma$ enters its floor but there is no $\kappa/\Gamma$
+rejection factor to protect. (This is an order-of-magnitude argument from the $n^7$ scaling
+and should be checked against a proper polarizability calculation.)
 
 \section{Route I: the $U(1)$ (lasing) transition}
 \label{sec:u1}
@@ -357,8 +408,28 @@ repump $w=\Gamma$. The last column is Route~II's floor at the same $N$ and $\Gam
 (Sec.~\ref{sec:z2}), which is capped by the Holstein--Primakoff requirement $n_b\ll N$.}
 \end{table}
 
-Route~I is a factor $5.1$ better at equal atom number, for a structural reason worth stating
-plainly: the lasing route inverts and uses \emph{all} $N$ atoms, whereas Route~II linearises
+\paragraph{An unexamined assumption, and the design fork it opens.} Everything above assumes
+the lasing transition is $\ket{g}\leftrightarrow\ket{+}$, i.e.\ that one can \emph{invert} a
+ground-to-dressed-Rydberg transition and hold it inverted. This note does not establish that,
+and it is not a small matter. At $w=\Gamma=2\pi\times20$~kHz each atom cycles every
+${\sim}8\,\mu$s, comfortably inside a ${\sim}100\,\mu$s Rydberg lifetime, so it is not
+excluded --- but it means driving a large fraction of the ensemble into Rydberg states
+continuously, with the blockade, ionisation and collisional problems that brings, and in
+direct tension with the narrow $\Gamma$ the whole route depends on. Every superradiant laser
+actually built uses a narrow \emph{optical} transition (Sr $^3P_0$), not a Rydberg state.
+
+There is a plausible alternative architecture: let the lasing transition be a narrow optical
+one and have the Rydberg admixture \emph{shift} it, so the microwave field enters as a
+perturbation on a clock transition rather than as the lasing transition itself. That preserves
+the bad-cavity physics and the drift rejection, but the microwave sensitivity is then
+suppressed by the dressing fraction, which would degrade the table above by that factor. Which
+architecture to pursue is an open design decision, and the numbers quoted here belong to the
+first one. Route~II carries no analogous assumption: it requires no inversion at all, since
+its normal phase is simply every atom in $\ket{g}$.
+
+\medskip
+Subject to that, Route~I is a factor $5.1$ better at equal atom number, for a structural
+reason worth stating plainly: the lasing route inverts and uses \emph{all} $N$ atoms, whereas Route~II linearises
 about the unexcited state and is limited to $n_b\ll N$ collective excitations. The mHz
 linewidths are the standard superradiant-laser prediction and are the reason the frequency
 read-out is competitive at all.
@@ -451,15 +522,71 @@ system sits exactly at threshold. The lock point satisfies
 so a change in the microwave field is read out directly as a change in an \emph{optical
 laser detuning}, which is a frequency and is therefore SI-traceable in exactly the sense
 that makes Autler--Townes electrometry attractive~\cite{Sedlacek2012,Adams2023}. The scale
-factor $d/2\hbar$ is the same as for Autler--Townes; what changes is the discriminant. In
-AT electrometry the resolution is set by how well a splitting can be resolved against the
-EIT linewidth. Here it is set by how sharply the threshold can be located, which is a
-different --- and, near a continuous transition, potentially much steeper --- function.
+factor $d/2\hbar$ is the same as for Autler--Townes; what changes is the shape of the
+discriminant. In AT electrometry the measurand is a line \emph{splitting}, fitted against
+the EIT linewidth; here it is the position of an \emph{edge}, held by a servo.
 
-To our reading of the literature this null variant has not been proposed, and it is the
-most defensible original element of the idea. It also has a practical virtue: null methods
-are first-order insensitive to gain calibration, which is precisely the weakness of
-Protocol A.
+Figure~\ref{fig:setup} shows the apparatus. The observable is worth stating explicitly
+because it is easy to assume otherwise: it is \emph{not} EIT transparency. There is no probe
+on the sensing transition. The cavity is dark below threshold and \emph{emits} above it, and
+one detects the light leaking through the output coupler, $2\kappa\avg{a\dg a}$ --- of order
+$20$~nW at $N=10^6$ (Sec.~\ref{sec:budget}). Figure~\ref{fig:protocolB} shows the computed
+trace.
+
+\medskip
+\noindent\textbf{An honest limit on this protocol.} It is tempting to argue that a threshold
+must be a sharper discriminant than a resonance, and an earlier draft of this note did. The
+numerics do not support it. From Fig.~\ref{fig:protocolB}(b) the edge is rounded by finite
+$N$ only over $\sim\wt_{\rm th}N^{-2/3}$, which is $\sim50$~Hz at $N=10^6$ and therefore
+negligible; the width is set instead by the atomic decoherence $\gamma$ --- the same scale
+that sets the EIT linewidth. Moreover $\partial\bar n/\partial\delta$ is \emph{finite} at
+threshold ($\bar n$ rises linearly below it), so the intensity read-out has no divergent
+slope; the divergence lives in the field amplitude $\alpha\propto\sqrt{\delta_{\rm
+th}-\delta}$, which is Protocol A's homodyne observable, not this one. Figure
+\ref{fig:protocolB}(d) makes the point visually: conventional EIT-AT responds perfectly well
+at the same field values.
+
+What survives is narrower but still worth having. Protocol~B is a \emph{null} method, so it
+is first-order insensitive to gain calibration and detector drift --- precisely the weakness
+of Protocol~A --- and it is frequency-referenced with an exact, dipole-traceable scale
+factor. It is not demonstrably a sharper discriminant than Autler--Townes, and establishing
+whether it can be requires the threshold-location noise calculation listed in
+Sec.~\ref{sec:verdict}. To our reading of the literature the null variant has not been
+proposed for this system.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{setup_route2.pdf}
+  \caption{\textbf{Route II with the Protocol B read-out.}
+  (a) The cavity mode is one leg of the Raman process, so the pump is applied
+  \emph{transversely} and never enters the mode; the counter-rotating term is generated by
+  modulating it, following the recipe of Ref.~\cite{Anisotropic2025}. The microwave field to
+  be measured dresses the Rydberg pair. Cavity emission is filtered, detected, and fed back
+  onto the two-photon detuning; the servo's correction \emph{is} the measurement. Pump
+  rejection is geometric (transverse pumping, $\sim$60--80~dB) plus the cavity's own
+  filtering ($\sim$70~dB at finesse $10^4$), against a requirement of $\sim$40--60~dB.
+  (b) The microwave field dresses $\ket{r},\ket{r'}$ into $\ket{\pm}$; $\ket{g}$ and
+  $\ket{+}$ form the effective spin whose splitting $\wt=\delta+\Omu/2$ carries the
+  measurand.
+  (c) The servo holds the system on the edge, which translates with the field.}
+  \label{fig:setup}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../figs/fig6_protocolB.pdf}
+  \caption{\textbf{The Protocol B read-out, computed} ($\omega/2\pi=1$~MHz,
+  $\lambda/2\pi=0.35$~MHz).
+  (a) Emitted photons per atom versus two-photon detuning at three microwave field values;
+  the edge translates at $-1.135$~MHz per (mV/cm).
+  (b) Exact diagonalisation shows the edge rounded by finite $N$, following $N^{-2/3}$ ---
+  negligible for realistic atom numbers.
+  (c) The calibration line: a frequency, referenced to a known dipole, not a fitted gain.
+  (d) Conventional EIT-AT transmission at the same fields, for contrast. It responds well;
+  the difference between the two read-outs is the \emph{shape} of the discriminant, not that
+  one of them fails.}
+  \label{fig:protocolB}
+\end{figure}
 
 \paragraph{Protocol C --- critical superheterodyne (recommended).}
 Apply a microwave local oscillator with Rabi frequency $\Om_{\rm LO}$ to set the bias point
@@ -621,6 +748,80 @@ what one needs to beat photodetector and technical noise, and is why Refs.~\cite
 Wang2025} report large Fisher-information gains --- but it does not lower the floor set by
 how many atoms are coherently participating and for how long.
 
+\subsubsection{Photon budget, blockade, and the dominant systematic}
+\label{sec:budget}
+
+Asking where the emitted photons come from settles three practical questions.
+
+\paragraph{The light is generated, not transmitted.} Each cavity photon is produced by a
+coherent Raman conversion: a transverse pump photon is absorbed, the collective spin flips,
+and a photon appears in the cavity mode, $\hbar\omega_{\rm pump} = \hbar\omega_c +
+\hbar\Delta_{\rm spin}$. The intermediate state $\ket{e}$ is far detuned and essentially
+never populated --- this is stimulated, not absorption followed by spontaneous re-emission,
+and residual real scattering off $\ket{e}$ is precisely the loss that sets $\gamma$. Because
+the cavity mode is one leg of the Raman process, the pump must be applied \emph{transversely}
+and never enters the mode; discrimination is therefore geometric first
+($\sim$60--80~dB) and spectral second (the cavity passes only $\omega_c$, worth
+$20\log_{10}(\mathcal{F}/\pi)\approx70$~dB at finesse $10^4$), against a requirement of
+$37$~dB for a $0.1$~mW pump and $57$~dB for $10$~mW. The budget closes comfortably.
+
+\paragraph{Blockade is not a limitation at the operating point.} The superradiant phase
+carries a Rydberg population $p_r=(1-\mu)/2$ which vanishes \emph{linearly} as threshold is
+approached. For a mode volume of $7.9\times10^{7}\,\mu\mathrm{m}^3$ (waist $100\,\mu$m,
+length $1$~cm) holding $N=10^6$ atoms, and a representative blockade radius $R_b=6\,\mu$m:
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccccc}
+\toprule
+$1-\mu$ & $10^{-4}$ & $10^{-3}$ & $10^{-2}$ & $10^{-1}$ & $0.5$\\
+\midrule
+Rydberg atoms & $50$ & $500$ & $5\,000$ & $5\times10^4$ & $2.5\times10^5$\\
+mean spacing & $116\,\mu$m & $54\,\mu$m & $25\,\mu$m & $11.6\,\mu$m & $6.8\,\mu$m\\
+in units of $R_b$ & $19$ & $9.0$ & $4.2$ & $1.9$ & $1.1$\\
+output power & $3.9$~pW & $39$~pW & $390$~pW & $3.7$~nW & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Blockade saturation sits at $p_r\approx0.087$, a factor ${\sim}17$ further from
+threshold in $1-\mu$ than any sensible bias point. \emph{This removes a caveat.} The warning
+in Sec.~\ref{sec:ising} that blockade caps $N_{\rm eff}$, and the cavity-occupation
+suppression reported by Ref.~\cite{DickeIsing2025}, apply deep in the superradiant phase
+where that study lives --- not at a sensing bias point, where the Rydberg gas is dilute. The
+photon yield is $8\kappa(\lambda/\omega)^2/\Gamma_r\approx31$ cavity photons per Rydberg
+decay, independent of $1-\mu$.
+
+The last row of the table is a second, softer constraint the gain--bandwidth analysis does
+not capture: the light runs out. Detection stays comfortable down to $1-\mu\sim10^{-4}$
+($3.9$~pW against a photodiode NEP of order pW$/\sqrt{\rm Hz}$), and that is where the
+operating point should stop, independently of critical slowing down.
+
+\paragraph{The dominant systematic is the pump light shift.} The Raman pumps AC-Stark-shift
+both $\ket{g}$ and $\ket{+}$, and that shift adds \emph{directly} to $\wt$ --- the same
+channel as the measurand. Pump intensity noise is therefore indistinguishable from signal.
+For a differential shift of $1$~MHz:
+
+\begin{center}\small
+\begin{tabular}{lccc}
+\toprule
+relative intensity noise & $10^{-2}$ & $10^{-3}$ & $10^{-4}$\\
+\midrule
+equivalent field error & $8.8~\mu$V/cm & $0.88~\mu$V/cm & $0.088~\mu$V/cm\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Against a quantum floor of $0.18~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$, a $1$~MHz shift
+with $10^{-3}$ intensity noise is some $5\times10^3$ times the one-second floor --- and it is
+drift, so it does not average down. This is the ``criticality amplifies drift'' objection in
+its concrete form for Route~II, and it is sharper than the generic statement in
+Sec.~\ref{sec:verdict}. Mitigation is mandatory rather than optional: Protocol~C's
+intermediate-frequency encoding to move the signal away from where the drift lives, intensity
+stabilisation at the $10^{-4}$--$10^{-5}$ level, or a choice of $\Delta_e$ for which the
+shifts on $\ket{g}$ and $\ket{+}$ cancel. It is worth noting that Route~I answers this
+objection \emph{physically}, through cavity pulling; Route~II must answer it technically.
+
 \subsubsection{Sensitivity in physical units}
 
 Converting Eq.~\eqref{eq:floor} through $\delta\wt = \delta\Omu/2$ and $E_\mu=\hbar\Omu/d$:
@@ -723,10 +924,13 @@ now, because it runs against the intuition that "more Rydberg physics is better"
         one bright mode. Rydberg blockade caps the number of independently excitable atoms
         per blockade volume at one, so the effective $N$ entering $\lambda=g_0\sqrt{N}$ and
         the floor \eqref{eq:floor} is $N_{\rm eff} = V_{\rm mode}/V_{\rm blockade}$, not the
-        atom number. Interactions also dephase the collective mode, raising $\gamma$. This
-        is not a speculative worry: the quantum Monte Carlo study of
-        Ref.~\cite{DickeIsing2025} reports exactly that, finding that Rydberg blockade
-        significantly suppresses the cavity occupation.
+        atom number. Interactions also dephase the collective mode, raising $\gamma$. The
+        quantum Monte Carlo study of Ref.~\cite{DickeIsing2025} reports exactly that,
+        finding that Rydberg blockade significantly suppresses the cavity occupation.
+        \emph{However}, Sec.~\ref{sec:budget} shows this bites only deep in the superradiant
+        phase: at a sensing bias point the Rydberg population vanishes linearly with the
+        distance to threshold, leaving the gas dilute enough that blockade is irrelevant. The
+        tension below is therefore much weaker than it first appears.
         The sensor wants \emph{weak} interactions --- moderate $n$, or a Rydberg pair chosen
         for small van der Waals coefficient.
   \item \textbf{For a threshold detector, they are a feature.} If the transition is driven
@@ -791,7 +995,7 @@ Read-out & optical amplitude & optical \emph{frequency} & amplitude / homodyne\\
 Cavity-drift immunity & none & \textbf{rejected $\kappa/\Gamma\approx10^2$} & none; drift amplified with signal\\
 Critical point set by & density, interactions & repump, $N$, finesse & laser power (in situ, $\mu$s)\\
 Reproducibility & drifts with $T$, density, stray fields & instrument setting & instrument setting\\
-Hysteresis & yes (scan-direction dependent) & no (second order) & no (second order)\\
+Hysteresis & in the bistable region, yes; none at the critical endpoint itself & no (second order) & no (second order)\\
 Noise floor & empirical: $49$, $2.6$ & $\sqrt{2\Gamma/N}$, all $N$ atoms & $0.72\sqrt{\Gamma/n_b}$, $n_b\ll N$\\
 At $N=10^6$, matched $\Gamma$ & --- & $0.070$ & $0.358$\\
 Transduction gain & steep edge & threshold nonlinearity & $\varepsilon^{-1}$, 3 decades free\\
@@ -877,7 +1081,26 @@ $2.6~\mathrm{nV\,cm^{-1}Hz^{-1/2}}$.
 Both papers were read in full, and the mechanism is unambiguous. The critical point is that
 of a \emph{non-equilibrium phase transition} (NEPT) --- the optical bistability of a
 laser-driven Rydberg ensemble, arising from the competition between long-range Rydberg
-interactions, drive strength and dissipation. The ``critical point'' is operationally the
+interactions, drive strength and dissipation. Feeding the interaction back as a
+population-dependent detuning, $\Delta_{\rm eff}=\Delta-V\rho_{rr}$, makes the steady-state
+Bloch equations cubic in $\rho_{rr}$, and a cubic with three real roots is an $S$-curve. The
+two phases are the \emph{non-interacting} one (low Rydberg density, $V\rho_{rr}$ negligible,
+atoms respond independently) and the \emph{interacting} one (high density, collective
+response), with the Rydberg population as order parameter.
+
+It is worth resolving an apparent inconsistency, because it is not sloppiness. The main text
+of Ref.~\cite{Ding2022} calls this ``a second order dynamical phase transition'', while its
+appendix derives bistability with a hysteresis loop --- the signature of a \emph{first}-order
+transition. Both are right, at different points of the same phase diagram: the structure is
+the liquid--gas one, a first-order line with a hysteretic bistable region terminating at a
+critical endpoint where the discontinuity vanishes and the susceptibility diverges. Ding
+\emph{et al.} define the critical point as where $d\rho_{rr}/d\Delta\to\infty$ --- the fold of
+the $S$-curve --- and operate \emph{at} that endpoint, where the transition is indeed
+continuous. Whether a driven-dissipative mean-field bistability is a phase transition in the
+thermodynamic sense is a separate and contested question; with finite-range interactions and
+atomic motion it may be replaced by fluctuation-driven switching between branches, with
+sharpness set by system size rather than a singularity. The sensor works either way, but the
+``phase transition'' language is a soft spot. The ``critical point'' is operationally the
 coupling-laser frequency at which the transmission jumps, the jump direction depends on the
 scan direction, and a hysteresis loop is observed. Reference~\cite{Wang2025} works in a hot
 caesium vapour cell ($6S_{1/2}\!\to\!6P_{3/2}\!\to\!47D_{5/2}$, microwave to $48P_{3/2}$),
@@ -901,9 +1124,37 @@ criticality:
         tunable in situ on microsecond timescales and can be servoed. The critical point
         is a controlled instrument setting rather than a property of the sample.
 \end{itemize}
-That difference is real and is worth a paper, but it is a difference of \emph{controllability
-and traceability}, not of sensitivity scaling. Claiming the latter would be wrong (see
-Sec.~\ref{sec:open}).
+\paragraph{The measurand couples differently too.} Reading both papers turns up a second
+distinction that is arguably more important than the first, and that we had initially
+missed. \emph{Neither uses Autler--Townes.} Ding \emph{et al.} state that ``the main effect
+of the microwave field here is to (1) induce a small AC Stark shift which moves the critical
+point, (2) change the population of the Rydberg atoms''; Wang \emph{et al.} drive
+$47D_{5/2}\!\to\!48P_{3/2}$ detuned by $\Delta_{\rm MW}/2\pi=-200$~MHz, where AT splitting is
+simply unavailable, and describe the resulting ``a.c.\ Stark shift\ldots reflected on the
+NEPT signal as a small frequency shift''. Three consequences follow:
+\begin{itemize}
+  \item The response is \emph{quadratic}, $\delta\approx\Om_\mu^2/4\Delta_{\rm MW}\propto
+        E_\mu^2$, not linear.
+  \item A quadratic response has zero slope at zero field, so both experiments must bias at a
+        nonzero amplitude --- $\approx2$~mV/cm in Ref.~\cite{Ding2022}, $4.87$ (free space)
+        and $4.95$~mV/cm (cavity) in Ref.~\cite{Wang2025}, in both cases tunable via the
+        coupling detuning. Their quoted sensitivities are local slopes about that bias.
+  \item The scale factor involves the Rydberg polarizability, the microwave detuning, the
+        interaction strength and the position of the critical point. It is fitted
+        ($k_c=0.719$, $k_f=0.035$), and neither paper claims SI traceability.
+\end{itemize}
+Both routes proposed here instead keep the \emph{resonant AT dressing}, so the measurand
+enters linearly through $\wt=\delta+\Omu/2$ with the exact, dipole-referenced scale factor
+$-d/2\hbar$. \emph{The incumbent gives up AT traceability in order to get criticality; these
+routes keep both.} One caveat: resolving one dressed state requires $\Omu\gtrsim\Gamma$, so
+for very weak fields one falls back to Protocol~C, where the microwave local oscillator
+supplies the bias --- structurally the same move Refs.~\cite{Ding2022,Wang2025} make, but
+with a linear rather than quadratic response about it.
+
+\medskip
+Both differences are real and worth a paper, but they are differences of
+\emph{controllability and traceability}, not of sensitivity scaling. Claiming the latter
+would be wrong (see Sec.~\ref{sec:open}).
 
 \subsection{Critical quantum metrology --- the theory that constrains the claims}
 
@@ -1003,6 +1254,10 @@ drift along with signal. Framed that way it is a good idea, and Route~I is the o
   \item \textbf{A frequency read-out (Route~I).} The measurand appears as an optical frequency
         at $1.124$~MHz per (mV/cm), not as an amplitude --- and all $N$ atoms participate,
         giving a floor $5.1\times$ below Route~II at equal $N$.
+  \item \textbf{Linear, dipole-traceable coupling (both routes).} The measurand enters through
+        resonant AT dressing, so the scale factor is exactly $-d/2\hbar$. The incumbent
+        NEPT couples the field through a \emph{quadratic} AC Stark shift about a nonzero bias,
+        with a fitted scale factor and no traceability claim (Sec.~\ref{sec:prior}).
   \item \textbf{Transduction gain (Route~II).} $\varepsilon^{-1}$ gain, with roughly
         three decades of it free of bandwidth cost. Real Rydberg sensors are usually limited
         by optical detection and technical noise, not by atomic projection noise, so gain at
@@ -1031,6 +1286,12 @@ drift along with signal. Framed that way it is a good idea, and Route~I is the o
   \item \textbf{The scaling advantage is illusory.} Established in Sec.~\ref{sec:open} and
         by Refs.~\cite{Rams2018,Gietka2021,Gyhm2025}. This is the objection a referee will
         raise first.
+  \item \textbf{Route~I's inversion is unproven (Route~I only).} The route assumes lasing on a
+        ground-to-dressed-Rydberg transition; no superradiant laser has been built on anything
+        but a narrow optical transition. See Sec.~\ref{sec:u1} for the alternative
+        architecture and what it would cost. This is the single largest open question for
+        Route~I, and it is the reason Route~II may be the safer target despite being the more
+        demanding experiment.
   \item \textbf{Criticality amplifies drift as well as signal.} Protocol A has no
         discrimination between $\delta\wt$ from the microwave field and $\delta\lambda$ from
         laser intensity noise or $\delta\omega$ from cavity drift --- formally, the critical
@@ -1057,8 +1318,13 @@ drift along with signal. Framed that way it is a good idea, and Route~I is the o
 \subsection{Recommended programme}
 
 \begin{enumerate}
-  \item \textbf{Build Route~I.} It is the cheaper experiment, it reaches the lower floor, and
-        its drift immunity is the defensible advantage. The apparatus already exists:
+  \item \textbf{Settle Route~I's inversion question first.} Decide between lasing directly on
+        the dressed-Rydberg transition and lasing on a narrow optical transition that the
+        Rydberg admixture shifts (Sec.~\ref{sec:u1}). The sensitivity numbers depend on the
+        answer, and everything else about Route~I is downstream of it. If the answer is
+        unfavourable, go to Route~II, which needs no inversion.
+  \item \textbf{Then build Route~I.} It is the cheaper experiment, it reaches the lower floor,
+        and its drift immunity is the defensible advantage. The apparatus already exists:
         Ref.~\cite{CavitySuperhet2025} is a cavity-enhanced Rydberg superheterodyne receiver
         with a 19~dB gain, and what it lacks is a repump and a narrow transition. The first
         measurement to make is simply Eq.~\eqref{eq:pull} --- confirm that the emitted
@@ -1232,6 +1498,12 @@ $\gamma/2\pi=5$~kHz, $d=1774.82\,ea_0$ for $^{87}$Rb $53D_{5/2}\!\to\!54P_{3/2}$
 
 \bibitem{SteadySR2016} \emph{Steady-state superradiance with Rydberg polaritons},
   arXiv:1611.00797 (2016).
+
+\bibitem{Floquet2024} \emph{Continuous broadband Rydberg receiver using AC Stark shifts and
+  Floquet states}, arXiv:2407.05676 (2024).
+
+\bibitem{DCStark2026} \emph{LO-free phase and amplitude recovery of an RF signal with a
+  DC-Stark-enabled Rydberg receiver}, arXiv:2603.30023 (2026).
 
 \bibitem{CavitySuperhet2025} \emph{Cavity-enhanced Rydberg atomic superheterodyne receiver},
   arXiv:2502.20792 (2025).
