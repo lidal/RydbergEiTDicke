@@ -78,11 +78,14 @@ $\varepsilon^{-1}$ transduction gain and $10$~dB of self-generated squeezing.
 Both routes reach the same $\sqrt{\Gamma/N}$ floor --- criticality buys gain and drift
 immunity, not a new scaling law. Adding Rydberg interactions to Route~I bends the threshold
 back into optical bistability, which shows that the incumbent transition and the proposed one
-are two limits of a single model, with the superradiant solid as the coexistence region. A
-further difference from the incumbent is that both routes here keep the resonant
-Autler--Townes coupling, so the scale factor is exactly $-d/2\hbar$; Refs.~\cite{Ding2022,
-Wang2025} couple the field through a \emph{quadratic} AC Stark shift about a nonzero bias,
-with a fitted scale factor.
+are two limits of a single model, with the superradiant solid as the coexistence region. Both routes here keep the resonant Autler--Townes coupling, so the scale factor is exactly
+$+d/2\hbar$ --- but, as Sec.~\ref{sec:model} shows, only once a bias field satisfies
+$\Omu\gg2\lambda^2/\omega$. The microwave dressing produces \emph{two} branches and the
+cavity couples to both, so the correct threshold is $\omega\omega_+\omega_-=4\lambda^2\delta$
+rather than $4\lambda^2=\omega\wt$; keeping one branch, as we first did, gets the read-out
+slope backwards and overstates the advantage over Refs.~\cite{Ding2022,Wang2025}, which also
+require a bias. What survives is that above the bias the response here is exactly linear and
+dipole-referenced, whereas theirs is a quadratic Stark response with a fitted scale factor.
 
 \medskip\noindent
 Two caveats are load-bearing and stated where they arise. Route~I assumes one can invert a
@@ -186,14 +189,34 @@ transition $d = 1774.82\,ea_0$, giving the conversion
 \end{equation}
 On microwave resonance the Rydberg pair is dressed into
 $\ket{\pm} = (\ket{r}\pm\ket{r'})/\sqrt2$ at energies $\pm\Omu/2$: this is the
-Autler--Townes doublet that conventional electrometry reads out as a line splitting. The
-key move here is to treat one dressed state, say $\ket{+}$, together with $\ket{g}$ as a
-single effective spin-$\tfrac12$ whose splitting is
+Autler--Townes doublet that conventional electrometry reads out as a line splitting, and
+with $\delta$ the two-photon detuning the two branches sit at
 \begin{equation}
-  \wt = \delta + \Omu/2,
+  \omega_\pm = \delta \pm \Omu/2 .
+  \label{eq:branches}
 \end{equation}
-$\delta$ being the two-photon detuning of the optical fields. \emph{The measurand has become
-a Hamiltonian parameter of a two-level system}, not a spectroscopic feature to be resolved.
+\emph{The measurand has become a Hamiltonian parameter}, not a spectroscopic feature to be
+resolved. That much is the point of the scheme.
+
+\paragraph{But it is not a two-level system, and this matters.} It is tempting --- and an
+earlier version of this note did it --- to keep one branch, say $\ket{+}$, and call
+$\ket{g},\ket{+}$ an effective spin-$\tfrac12$ with splitting $\wt=\delta+\Omu/2$. That is
+wrong. The cavity-assisted Raman couples $\ket{g}$ to the \emph{bare} $\ket{r}$, and
+$\ket{r}=(\ket{+}+\ket{-})/\sqrt2$, so it couples to \emph{both} dressed branches, each with
+strength $\lambda/\sqrt2$. The correct low-excitation problem has two atomic modes, and its
+normal-phase stability follows from the potential matrix in quadratures
+$(x_a,x_+,x_-)$,
+\begin{equation}
+  V = \begin{pmatrix} \omega & 2g & 2g\\ 2g & \omega_+ & 0\\ 2g & 0 & \omega_-\end{pmatrix},
+  \qquad g=\frac{\lambda}{\sqrt2},
+  \qquad \det V = 0 \ \Longleftrightarrow\
+  \boxed{\ \omega\,\omega_+\omega_- = 4\lambda^2\delta\ }
+  \label{eq:2branch}
+\end{equation}
+(verified numerically: $\det V$ and $4\lambda^2\delta-\omega\omega_+\omega_-$ change sign
+together). Section~\ref{sec:z2} works with Eq.~\eqref{eq:2branch}; the consequences of having
+had it wrong are recorded there and are not small --- among them a sign error in the
+read-out slope.
 
 \subsection{Two ways to make a light--matter transition}
 \label{sec:tworoutes}
@@ -503,33 +526,47 @@ $\avg{J_x}=\tfrac{N}{2}\sin\theta$ and $\alpha=\avg{a}/\sqrt N$,
 \end{equation}
 which has the normal solution $\theta=0$ for $\lambda<\lc$ and, for $\lambda>\lc$,
 \begin{equation}
-  \cos\theta = \mu \equiv \frac{\lc^2}{\lambda^2} = \frac{\omega\wt}{4\lambda^2},
+  \cos\theta = \mu \equiv \frac{\lc^2}{\lambda^2},
   \qquad
   \bar n \equiv \frac{\avg{a\dg a}}{N} = \frac{\lambda^2}{\omega^2}\left(1-\mu^2\right),
-  \qquad
-  \lc = \tfrac12\sqrt{\omega\wt}.
 \end{equation}
-Figure~\ref{fig:threshold} shows the resulting sensing curve and the order parameter as the
-microwave field is swept at fixed $\lambda$.
+but with the critical coupling given by the two-branch condition
+Eq.~\eqref{eq:2branch} rather than by $\tfrac12\sqrt{\omega\wt}$:
+\begin{equation}
+  \lc(\delta,\Omu) = \sqrt{\frac{\omega\,\omega_+\omega_-}{4\delta}}
+  = \sqrt{\frac{\omega\left(\delta^2-\Omu^2/4\right)}{4\delta}} .
+  \label{eq:lamc2}
+\end{equation}
+Two things follow immediately, and both reverse statements made in earlier drafts.
+\textbf{First, $\lc$ \emph{decreases} with the microwave field}, because $\delta^2-\Omu^2/4$
+shrinks: a larger field turns the cavity \emph{on}, not off. The scheme is a dark-to-bright
+discriminator. \textbf{Second, the near-resonant branch dominates}: the stability sum carries
+$1/\omega_\pm$, so the smaller splitting $\omega_-=\delta-\Omu/2$ controls the transition,
+not $\omega_+$. Building the effective spin on $\ket{+}$ --- as we first did --- picks the
+wrong branch.
+Figure~\ref{fig:threshold} shows the corrected sensing curve.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../figs/fig1_threshold.pdf}
-  \caption{\textbf{The microwave field moves the phase boundary.}
-  (a) Threshold coupling $\lc = \tfrac12\sqrt{\omega\,\Omu/2}$ versus microwave field for
-  $\omega/2\pi = 1$~MHz, $\delta=0$ and the $53D_{5/2}\!\to\!54P_{3/2}$ dipole. At fixed
-  $\lambda$ (dashed) the system crosses from superradiant to normal at a well-defined field.
-  (b) Order parameter $\bar n$ at $\lambda/2\pi = 0.35$~MHz: the cavity goes dark above a
-  critical field $E_\mu^c$. The steep square-root onset near $E_\mu^c$ is the transduction
-  gain the scheme trades on.}
+  \caption{\textbf{The microwave field moves the phase boundary --- corrected for both
+  dressed branches.} $\omega/2\pi=1$~MHz, $\lambda/2\pi=0.35$~MHz, $\delta/2\pi=3$~MHz.
+  (a) The boundary Eq.~\eqref{eq:lamc2} at fixed $\delta$: $\lc$ \emph{falls} with the field,
+  so raising $E_\mu$ switches the cavity on.
+  (b) The Protocol~B lock point. The correct two-branch result (solid) rises with slope
+  $+d/2\hbar$; the single-branch model of earlier drafts (dotted) falls with slope
+  $-d/2\hbar$ --- the same magnitude and the wrong sign.
+  (c) The scale factor reaches $d/2\hbar$ only asymptotically, hitting $92\%$ at
+  $0.5$~mV/cm, $98\%$ at $1$~mV/cm and $99.4\%$ at $2$~mV/cm, and vanishing as
+  $E_\mu\to0$.}
   \label{fig:threshold}
 \end{figure}
 
-The immediate observation is that the \emph{sign} of the response is the useful one: for
-$\delta=0$ a \emph{larger} microwave field raises $\wt$ and hence $\lc$, extinguishing
-superradiance. The sensor is therefore naturally operated as a bright-to-dark discriminator,
-which is favourable for detection (one measures a decrease from a large signal, not an
-increase from zero).
+The sensor is therefore a dark-to-bright discriminator: the background is zero and the field
+switches the emission on. That is a fair trade against the bright-to-dark operation claimed
+in earlier drafts --- the contrast is if anything better, since below threshold the coherent
+output is exactly zero --- but the sign of every response in this section is reversed from
+what those drafts stated.
 
 \subsection{Three read-out protocols}
 \label{sec:protocols}
@@ -554,12 +591,55 @@ by exactly the same factor as the signal.
 
 \paragraph{Protocol B --- threshold (null) read-out.}
 Hold $\lambda$ and $\omega$ fixed and servo the two-photon detuning $\delta$ so that the
-system sits exactly at threshold. The lock point satisfies
+system sits exactly at threshold. From Eq.~\eqref{eq:2branch} the lock point solves
+$\omega\delta^2-4\lambda^2\delta-\omega\Omu^2/4=0$, and
 \begin{equation}
-  \delta_{\rm th} = \frac{4\lambda^2}{\omega} - \frac{\Omu}{2}
-  \qquad\Longrightarrow\qquad
-  \frac{\partial \delta_{\rm th}}{\partial E_\mu} = -\frac{d}{2\hbar},
+  \frac{\partial\delta_{\rm th}}{\partial\Omu}
+   = \frac{\omega\,\Omu/2}{2\left(\omega\delta_{\rm th}-2\lambda^2\right)}
+  \;\xrightarrow[\ \Omu\gg2\lambda^2/\omega\ ]{}\;+\frac12,
+  \qquad\text{i.e.}\qquad
+  \frac{\partial \delta_{\rm th}}{\partial E_\mu} \to +\frac{d}{2\hbar},
+  \label{eq:slopeB}
 \end{equation}
+where in that limit $\omega_-$ locks to the field-independent value $2\lambda^2/\omega$ and
+$\delta_{\rm th}=2\lambda^2/\omega+\Omu/2$. Note the sign: \emph{positive}. Earlier drafts,
+built on the wrong branch, had $-d/2\hbar$.
+
+A further consequence of keeping both branches is that the superradiant region is a
+\emph{window}, not a half-line. Its lower edge is at $\delta=\Omu/2$, where $\omega_-\to0$ and
+the normal phase ceases to be a minimum --- a two-photon resonance, not a superradiant
+threshold --- and its upper edge is $\delta_{\rm th}$. The width is
+$\delta_{\rm th}-\Omu/2=\omega_-\to2\lambda^2/\omega$, independent of the field: numerically
+$0.271$, $0.262$, $0.258$ and $0.250$ (MHz$/2\pi$) at $E_\mu=1$, $1.5$, $2$ and $5$~mV/cm
+against the asymptote $0.245$. So the whole window slides rigidly with the microwave field
+(Fig.~\ref{fig:protocolB}a). Protocol~B locks to the upper edge, which is the genuine
+critical point.
+
+\paragraph{The scale factor is exact only above a bias field.} Equation~\eqref{eq:slopeB}
+also shows the slope \emph{vanishing} as $\Omu\to0$: with the two branches degenerate their
+responses cancel, and the sensor has no sensitivity at zero field. For
+$\omega/2\pi=1$~MHz and $\lambda/2\pi=0.35$~MHz (so $2\lambda^2/\omega=2\pi\times0.245$~MHz):
+
+\begin{center}\small
+\begin{tabular}{lcccccc}
+\toprule
+$E_\mu$ (mV/cm) & $0.05$ & $0.1$ & $0.22$ & $0.5$ & $1.0$ & $2.0$\\
+\midrule
+$\partial\delta_{\rm th}/\partial E_\mu$ [MHz/(mV/cm)] & $0.256$ & $0.478$ & $0.811$ & $1.043$ & $1.110$ & $1.129$\\
+\% of $d/2\hbar=1.1355$ & $23$ & $42$ & $71$ & $92$ & $98$ & $99.4$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent This is a material retraction. The claim that Route~II keeps a linear,
+dipole-traceable coupling \emph{without} a bias field --- advanced in
+Sec.~\ref{sec:prior} as an advantage over Refs.~\cite{Ding2022,Wang2025} --- does not
+survive. Both routes need a bias, exactly as the incumbent does. What survives is narrower
+but still real: once a microwave local oscillator supplies $\Omu\gg2\lambda^2/\omega$, the
+response here is \emph{exactly} linear with the dipole-referenced slope $d/2\hbar$, whereas
+the incumbent remains a quadratic Stark response linearised about its bias with a fitted
+scale factor. The bias is supplied by Protocol~C's local oscillator, which is therefore
+mandatory rather than a refinement.
 so a change in the microwave field is read out directly as a change in an \emph{optical
 laser detuning}, which is a frequency and is therefore SI-traceable in exactly the sense
 that makes Autler--Townes electrometry attractive~\cite{Sedlacek2012,Adams2023}. The scale
@@ -618,11 +698,14 @@ proposed for this system.
   \includegraphics[width=\textwidth]{../figs/fig6_protocolB.pdf}
   \caption{\textbf{The Protocol B read-out, computed} ($\omega/2\pi=1$~MHz,
   $\lambda/2\pi=0.35$~MHz).
-  (a) Emitted photons per atom versus two-photon detuning at three microwave field values;
-  the edge translates at $-1.135$~MHz per (mV/cm).
-  (b) Exact diagonalisation shows the edge rounded by finite $N$, following $N^{-2/3}$ ---
-  negligible for realistic atom numbers.
-  (c) The calibration line: a frequency, referenced to a known dipole, not a fitted gain.
+  (a) Emitted photons per atom versus two-photon detuning. With both dressed branches kept,
+  the superradiant region is a window of field-independent width $2\lambda^2/\omega$ that
+  slides rigidly at $+1.135$~MHz per (mV/cm); Protocol~B locks to the upper edge.
+  (b) Finite-$N$ rounding, $\propto N^{-2/3}$ --- computed in the single-branch model, where
+  exact diagonalisation is cheap, but the scaling law is universal for this class and carries
+  over.
+  (c) The corrected calibration (solid), its asymptote $+d/2\hbar$ (dashed), and the
+  single-branch result of earlier drafts (dotted), which has the wrong sign.
   (d) Conventional EIT-AT transmission at the same fields, for contrast. It responds well;
   the difference between the two read-outs is the \emph{shape} of the discriminant, not that
   one of them fails.}
@@ -1031,7 +1114,7 @@ ultranarrow nonclassical light, not measuring a field.
 \toprule
 & \textbf{NEPT} (incumbent) & \textbf{Route I} ($U(1)$ lasing) & \textbf{Route II} ($\mathbb{Z}_2$ Dicke)\\
 \midrule
-Scale factor & empirical, calibrated & $-d/2\hbar$ (exact) & $-d/2\hbar$ (exact)\\
+Scale factor & empirical, calibrated & $+d/2\hbar$, exact for $\Omu\gg2\lambda^2/\omega$ & $+d/2\hbar$, same condition\\
 Read-out & optical amplitude & optical \emph{frequency} & amplitude / homodyne\\
 Cavity-drift immunity & none & \textbf{rejected $\kappa/\Gamma\approx10^2$} & none; drift amplified with signal\\
 Critical point set by & density, interactions & repump, $N$, finesse & laser power (in situ, $\mu$s)\\
@@ -1184,13 +1267,14 @@ NEPT signal as a small frequency shift''. Three consequences follow:
         interaction strength and the position of the critical point. It is fitted
         ($k_c=0.719$, $k_f=0.035$), and neither paper claims SI traceability.
 \end{itemize}
-Both routes proposed here instead keep the \emph{resonant AT dressing}, so the measurand
-enters linearly through $\wt=\delta+\Omu/2$ with the exact, dipole-referenced scale factor
-$-d/2\hbar$. \emph{The incumbent gives up AT traceability in order to get criticality; these
-routes keep both.} One caveat: resolving one dressed state requires $\Omu\gtrsim\Gamma$, so
-for very weak fields one falls back to Protocol~C, where the microwave local oscillator
-supplies the bias --- structurally the same move Refs.~\cite{Ding2022,Wang2025} make, but
-with a linear rather than quadratic response about it.
+Both routes proposed here instead keep the \emph{resonant AT dressing}. The comparison is
+narrower than we first claimed, however, and the correction is recorded in
+Sec.~\ref{sec:protocols}: because the cavity couples to both dressed branches, the read-out
+slope vanishes at zero field and reaches its exact value $+d/2\hbar$ only once a bias
+satisfies $\Omu\gg2\lambda^2/\omega$. \emph{Both} schemes therefore require a bias field.
+What distinguishes them is the form of the response about it --- exactly linear and
+dipole-referenced here, quadratic-Stark linearised with a fitted factor there --- not the
+need for a bias, and not traceability at zero field, which neither has.
 
 \medskip
 Both differences are real and worth a paper, but they are differences of
@@ -1295,10 +1379,13 @@ drift along with signal. Framed that way it is a good idea, and Route~I is the o
   \item \textbf{A frequency read-out (Route~I).} The measurand appears as an optical frequency
         at $1.124$~MHz per (mV/cm), not as an amplitude --- and all $N$ atoms participate,
         giving a floor $5.1\times$ below Route~II at equal $N$.
-  \item \textbf{Linear, dipole-traceable coupling (both routes).} The measurand enters through
-        resonant AT dressing, so the scale factor is exactly $-d/2\hbar$. The incumbent
-        NEPT couples the field through a \emph{quadratic} AC Stark shift about a nonzero bias,
-        with a fitted scale factor and no traceability claim (Sec.~\ref{sec:prior}).
+  \item \textbf{Linear, dipole-traceable coupling above a bias (both routes).} With a local
+        oscillator supplying $\Omu\gg2\lambda^2/\omega$, the measurand enters through resonant
+        AT dressing and the scale factor is exactly $+d/2\hbar$. The incumbent NEPT also needs
+        a bias, but its response there is a \emph{quadratic} AC Stark shift linearised about
+        that bias, with a fitted scale factor and no traceability claim. The advantage is
+        therefore in the \emph{form} of the response, not in avoiding a bias
+        (Secs.~\ref{sec:protocols}, \ref{sec:prior}).
   \item \textbf{Transduction gain (Route~II).} $\varepsilon^{-1}$ gain, with roughly
         three decades of it free of bandwidth cost. Real Rydberg sensors are usually limited
         by optical detection and technical noise, not by atomic projection noise, so gain at

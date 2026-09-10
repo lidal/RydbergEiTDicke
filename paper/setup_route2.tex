@@ -75,7 +75,7 @@
 \draw[loop,->] (13.2,-0.42) -- (servo);
 
 \node[box, fill=Gold!12, draw=Gold!70!black, anchor=north] (out) at (7.2,-2.35)
-   {\textbf{read-out:}\ \ $\delta_{\rm th}\ \Rightarrow\ E_\mu=-\dfrac{2\hbar}{d}\,\delta_{\rm th}+\text{const}$};
+   {\textbf{read-out:}\ \ $\delta_{\rm th}\ \Rightarrow\ E_\mu=+\dfrac{2\hbar}{d}\,\delta_{\rm th}+\text{const}$\\[1pt]{\tiny(exact once $\Omega_\mu\gg2\lambda^2/\omega$)}};
 \draw[Navy, dashed, line width=0.7pt, ->] (12.4,-2.15) -- (10.1,-2.60);
 \node[tin, Navy, anchor=west] at (3.35,-1.62) {feedback holds the system \emph{on} threshold};
 
@@ -122,9 +122,9 @@
 \node[tin, Teal, anchor=west] at (0.30,2.98) {superradiant (bright)};
 \node[tin, gray, anchor=west] at (3.35,0.40) {normal (dark)};
 \draw[Gold!70!black, line width=1.2pt, dash pattern=on 3pt off 2pt]
-  (0.15,2.00) .. controls (0.95,1.65) and (1.4,0.92) .. (1.85,0.05);
-\draw[Gold!70!black, line width=1.2pt, dash pattern=on 3pt off 2pt] (1.85,0.05) -- (4.45,0.05);
-\draw[->, Gold!70!black, line width=0.8pt] (2.70,1.55) -- (1.80,1.55);
+  (0.15,2.95) .. controls (1.85,2.55) and (2.75,1.35) .. (3.75,0.05);
+\draw[Gold!70!black, line width=1.2pt, dash pattern=on 3pt off 2pt] (3.75,0.05) -- (4.45,0.05);
+\draw[->, Gold!70!black, line width=0.8pt] (1.80,1.55) -- (2.70,1.55);
 \node[tin, Gold!65!black, anchor=west] at (2.78,1.55) {$E_\mu$ increases};
 \fill[Rust] (2.68,0.30) circle (0.08);
 \draw[Rust, dashed, line width=0.6pt] (2.68,0.30) -- (2.68,-0.30);
@@ -132,7 +132,7 @@
 \node[tin, Rust, anchor=west] at (3.05,0.92) {lock point};
 \draw[<-, Rust, line width=0.7pt] (2.77,0.39) -- (3.03,0.85);
 \node[box, fill=Gold!12, draw=Gold!70!black, anchor=north west] at (-0.35,-0.95)
-   {$\dfrac{\partial\delta_{\rm th}}{\partial E_\mu}=-\dfrac{d}{2\hbar}=-1.135\ \mathrm{MHz/(mV\,cm^{-1})}$};
+   {$\dfrac{\partial\delta_{\rm th}}{\partial E_\mu}\to+\dfrac{d}{2\hbar}=+1.135\ \mathrm{MHz/(mV\,cm^{-1})}$};
 \end{scope}
 
 \end{tikzpicture}
