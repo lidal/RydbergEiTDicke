@@ -636,6 +636,37 @@ cavity, but whether that survives into steady state depends on repumping and nee
 driven-dissipative calculation. The safe statement is that any brightness there is downhill
 decay, not symmetry breaking, and Protocol~B should not be locked to it.
 
+\paragraph{What breaks the $\ket{+}/\ket{-}$ symmetry? Only the reference state.} The
+asymmetry above deserves an explanation, because nothing in the Hamiltonian supplies one: the
+microwave dressing is symmetric and the cavity couples to both branches with the same
+$\lambda/\sqrt2$. The symmetry is broken by the two-photon detuning $\delta$ --- and it
+\emph{must} be, because at the symmetric point $\delta=0$, where $\omega_\pm=\pm\Omu/2$,
+the state $\ket{g}$ sits \emph{between} the branches and is a saddle rather than a minimum for
+every field we checked ($\Omu/2\pi=1.14$ to $11.4$~MHz). Exactly where $\ket{+}$ and $\ket{-}$
+are symmetric there is no transition at all. A superradiant transition out of $\ket{g}$
+requires both branches above it, $\delta>\Omu/2$, which is an asymmetric configuration by
+construction, and then the near-resonant branch $\ket{-}$ dominates.
+
+The mirror transition does exist. For $\delta<-\Omu/2$ both dressed states lie below
+$\ket{g}$, the natural reference is $\ket{-}$, and only \emph{one} excitation is
+cavity-coupled --- $\ket{-}\!\to\!\ket{g}$, since $\ket{-}\!\to\!\ket{+}$ is the microwave
+transition and carries no cavity matrix element. That is a clean single-mode Dicke model with
+threshold $2\lambda^2=\omega|\omega_-|$.
+
+Written in the near-resonant splitting the two cases are \emph{identical}:
+\begin{equation}
+  \bigl|\omega_{\rm near}\bigr|_{\rm th} = \frac{2\lambda^2}{\omega}
+  \qquad\text{on both sides,}
+\end{equation}
+which for our parameters is $2\pi\times0.245$~MHz --- the same number that
+Eq.~\eqref{eq:slopeB} locks to from above. The apparent asymmetry in
+Fig.~\ref{fig:roots} is an artefact of plotting against $\delta$ rather than
+$\omega_{\rm near}$; the physics is symmetric. What is \emph{not} symmetric is accessibility:
+the $\delta>0$ transition starts from $\ket{g}$, where the atoms already are, while its mirror
+requires the whole ensemble inverted into a Rydberg state --- which is precisely the obstacle
+identified for Route~I in Sec.~\ref{sec:u1}. The two routes turn out to be the two sides of
+one symmetric pair, separated by nothing more fundamental than which state one can prepare.
+
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.86\textwidth]{../figs/fig7_roots.pdf}
@@ -645,7 +676,9 @@ decay, not symmetry breaking, and Protocol~B should not be locked to it.
   $\delta_+=+2.529$~MHz$/2\pi$, obeying $\delta_+\delta_-=-\Omu^2/4$.
   (b) The smallest eigenvalue of $V$, however, crosses zero only at $\delta_+$. Below
   $\delta=\Omu/2$ the normal phase is already not a minimum because $\omega_-<0$, so
-  $\delta_-$ marks no transition.}
+  $\delta_-$ marks no transition. The asymmetry is one of accessibility, not of physics:
+  written in the near-resonant splitting, both sides have the same threshold
+  $|\omega_{\rm near}|=2\lambda^2/\omega$.}
   \label{fig:roots}
 \end{figure}
 
