@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[margin=2.6cm]{geometry}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb,bm}
 \usepackage{booktabs}
 \usepackage{array}
@@ -18,6 +18,7 @@
 \newcommand{\dg}{^{\dagger}}
 \newcommand{\Om}{\Omega}
 \newcommand{\Omu}{\Omega_{\mu}}
+\newcommand{\Dmu}{\Delta_{\mu}}
 
 \newmdenv[linecolor=Navy,linewidth=0.8pt,backgroundcolor=Navy!4,
           roundcorner=3pt,innertopmargin=7pt,innerbottommargin=7pt]{keybox}
@@ -29,245 +30,262 @@
 
 \begin{document}
 \maketitle
-\vspace{-8mm}
+\vspace{-10mm}
 
 \begin{abstract}\noindent
-We reduce the four-level Rydberg-EIT ladder in a cavity to a collective spin--boson model,
-in three moves: adiabatic elimination of the intermediate state, rotation into the
-microwave-dressed Rydberg basis, and a Holstein--Primakoff expansion for $N$ atoms. Each step
-is a matrix operation and each carries a validity condition, stated as we go. The punchline is
-that the microwave dressing leaves \emph{two} coupled branches, not one, so the natural object
-is a two-branch Dicke model; the familiar two-level Dicke model is a limit of it, valid only
-when one branch is far off resonance. Throughout $\hbar=1$.
+We start from the exact laboratory Hamiltonian and reduce it, one controlled step at a time,
+to a collective spin--boson model. Each step is a matrix operation and each carries a stated
+validity condition. Two results deserve advance notice. First, the enormous
+$\ket{r}\!\to\!\ket{r'}$ splitting does not appear in the reduced model at all: the rotating
+frame absorbs it, leaving only the microwave \emph{detuning} $\Dmu$. Second, the microwave
+dressing generally produces two branches that couple to the ground state \emph{unequally}, by
+an amount set by the mixing angle; the familiar symmetric Autler--Townes doublet is the
+$\Dmu=0$ limit, and the single-branch (AC Stark) picture is the $|\Dmu|\gg\Omu$ limit. Which
+limit one works in decides whether the measurand enters linearly or quadratically. Throughout
+$\hbar=1$.
 \end{abstract}
 
-\section{The system}
+\section{The exact Hamiltonian}
 
-Four atomic levels, in the order we will keep them:
+Four atomic levels with laboratory energies $\omega_1=0<\omega_2<\omega_3<\omega_4$:
 \[
-  \ket{1}=\ket{g}=\ket{5S_{1/2}},\quad
-  \ket{2}=\ket{e}=\ket{5P_{3/2}},\quad
-  \ket{3}=\ket{r}=\ket{nD},\quad
-  \ket{4}=\ket{r'}=\ket{n'P}.
+  \ket{1}=\ket{5S_{1/2}},\quad \ket{2}=\ket{5P_{3/2}},\quad
+  \ket{3}=\ket{53D_{5/2}},\quad \ket{4}=\ket{54P_{3/2}},
 \]
-Three fields act. The \emph{cavity mode} $\hat a$ drives $\ket{1}\!\leftrightarrow\!\ket{2}$
-with single-atom coupling $g_0$; a classical \emph{control} laser drives
-$\ket{2}\!\leftrightarrow\!\ket{3}$ with Rabi frequency $\Om_c$; and the \emph{microwave field
-to be measured} drives $\ket{3}\!\leftrightarrow\!\ket{4}$ with $\Omu = dE_\mu/\hbar$.
-
-Go to the frame rotating at the drive frequencies and make the rotating-wave approximation.
-With $\Delta$ the one-photon detuning of the cavity from $\ket{1}\!\to\!\ket{2}$, $\delta$ the
-two-photon detuning of $\ket{1}\!\to\!\ket{3}$, and the microwave on resonance, the
-single-atom Hamiltonian in the basis $(\ket{1},\ket{2},\ket{3},\ket{4})$ is
+numerically $\omega_2/2\pi=384.25$, $\omega_3/2\pi=1008.82$~THz, and
+$(\omega_4-\omega_3)/2\pi\simeq10$~GHz. Writing $\sigma_{jk}=\ket{j}\bra{k}$, and with no
+approximations whatsoever,
 \begin{equation}
-  H_{\rm at} =
+\begin{split}
+  H = {}& \underbrace{\sum_{j=1}^{4}\omega_j\,\sigma_{jj} + \omega_{\rm cav}\,a\dg a}_{\text{free}}
+   + \underbrace{g_0\,(a+a\dg)(\sigma_{12}+\sigma_{21})}_{\text{cavity, }\ket{1}\leftrightarrow\ket{2}} \\[2ex]
+   & + \underbrace{\Om_c\cos(\nu_c t)\,(\sigma_{23}+\sigma_{32})}_{\text{control laser}}
+   + \underbrace{\Omu\cos(\nu_\mu t)\,(\sigma_{34}+\sigma_{43})}_{\text{microwave}} .
+\end{split}
+  \label{eq:lab}
+\end{equation}
+The classical fields carry their full time dependence; the cavity coupling carries both
+$a$ and $a\dg$. Nothing has been dropped.
+
+\section{Step 1: the rotating frame}
+
+Transform with $\tilde H = U H U\dg + i\dot U U\dg$, choosing
+\begin{equation}
+  U(t)=\exp\Bigl\{i t\bigl[\omega_L\, a\dg a + \omega_L\,\sigma_{22}
+        + (\omega_L+\nu_c)\,\sigma_{33} + (\omega_L+\nu_c+\nu_\mu)\,\sigma_{44}\bigr]\Bigr\},
+\end{equation}
+i.e.\ each level is rotated at the \emph{sum of the drive frequencies needed to reach it}
+($\omega_L$ is a reference near the cavity resonance). This is an exact change of picture. Its
+whole effect is on the diagonal:
+
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+level & rotated at & lab energy & rotating-frame energy \\
+\midrule
+$\ket{1}$ & $0$ & $0$ & $0$\\
+$\ket{2}$ & $\omega_L$ & $2\pi\!\times\!384$~THz & $\Delta \equiv \omega_2-\omega_L$ \quad($\sim$GHz)\\
+$\ket{3}$ & $\omega_L+\nu_c$ & $2\pi\!\times\!1009$~THz & $\delta \equiv \omega_3-\omega_L-\nu_c$ \quad($\sim$MHz)\\
+$\ket{4}$ & $\omega_L+\nu_c+\nu_\mu$ & $\omega_3+2\pi\!\times\!10$~GHz &
+   $\delta+\Dmu$, \ \ $\Dmu \equiv (\omega_4-\omega_3)-\nu_\mu$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{keybox}
+\textbf{This answers the obvious objection.} $\ket{3}$ and $\ket{4}$ are \emph{not} degenerate
+--- they are $10$~GHz apart. But the frame rotates $\ket{4}$ faster than $\ket{3}$ by exactly
+$\nu_\mu$, and $\nu_\mu$ is chosen close to that splitting. The $10$~GHz is subtracted off;
+what remains on the diagonal is only the residual \emph{microwave detuning} $\Dmu$, of order
+MHz. Setting $\Dmu=0$ makes the two entries equal --- and that is a statement about the
+\emph{drive}, not about the atom.
+\end{keybox}
+
+\section{Step 2: the rotating-wave approximation}
+
+In the new frame the cavity term $a\dg\sigma_{21}$ picks up $e^{2i\omega_L t}$, and
+$\cos(\nu t)\sigma_{jk}$ splits into a static piece and one at $e^{2i\nu t}$. Dropping the
+fast pieces requires
+\begin{equation}
+  g_0,\ \Om_c,\ \Omu \ \ll\ \omega_L,\ \nu_c,\ \nu_\mu ,
+  \tag{A1}
+\end{equation}
+which is spectacularly well satisfied (MHz against THz, and MHz against the $10$~GHz microwave).
+The result is time-independent and still exact to this order:
+\begin{equation}
+  \tilde H = \omega_c\, a\dg a +
   \begin{pmatrix}
-    0            & g_0\hat a\dg & 0            & 0 \\[2pt]
-    g_0\hat a    & -\Delta      & \Om_c/2      & 0 \\[2pt]
-    0            & \Om_c/2      & \delta       & \Omu/2 \\[2pt]
-    0            & 0            & \Omu/2       & \delta
+    0        & g_0 a\dg & 0        & 0 \\[2pt]
+    g_0 a    & \Delta   & \Om_c/2  & 0 \\[2pt]
+    0        & \Om_c/2  & \delta   & \Omu/2 \\[2pt]
+    0        & 0        & \Omu/2   & \delta+\Dmu
   \end{pmatrix},
-  \qquad
-  H = \omega_c\,\hat a\dg\hat a + H_{\rm at}.
+  \qquad \omega_c \equiv \omega_{\rm cav}-\omega_L .
   \label{eq:H4}
 \end{equation}
-$\omega_c$ is the cavity detuning in this frame --- an effective frequency, freely tunable,
-not an optical one. Note the structure: the matrix is \emph{tridiagonal}, because each field
-connects only neighbouring levels.
+Note the matrix is tridiagonal: each field connects only neighbouring levels.
 
-\section{Step 1: eliminate the intermediate state}
+\section{Step 3: eliminate the intermediate state}
 
-The excited state $\ket{2}$ is short-lived and we never want it populated. Detune far from it,
+Detune far from the lossy state $\ket{2}$,
 \begin{equation}
-  |\Delta| \;\gg\; \Om_c,\;\; g_0\sqrt{\langle \hat a\dg \hat a\rangle},\;\; \Gamma_e ,
-  \tag{C1}
+  |\Delta| \ \gg\ \Om_c,\ g_0\sqrt{\langle a\dg a\rangle},\ \Gamma_e ,
+  \tag{A2}
 \end{equation}
-so that its amplitude follows the others adiabatically. Setting $\dot c_2=0$ in
-$i\dot c_2 = g_0\hat a\,c_1 - \Delta c_2 + (\Om_c/2)c_3$ gives
+so its amplitude follows adiabatically: $c_2 \simeq -(g_0 a\,c_1 + \tfrac{\Om_c}{2}c_3)/\Delta$.
+Substituting into Eq.~\eqref{eq:H4} leaves, in $\{\ket{1},\ket{3},\ket{4}\}$,
 \begin{equation}
-  c_2 \simeq \frac{1}{\Delta}\Bigl(g_0 \hat a\,c_1 + \tfrac{\Om_c}{2}c_3\Bigr).
-\end{equation}
-Substituting back and keeping the terms generated in $\{\ket{1},\ket{3},\ket{4}\}$:
-\begin{equation}
-  H_{\rm at}^{(3)} =
   \begin{pmatrix}
-    \dfrac{g_0^2\,\hat a\dg\hat a}{\Delta} & \lambda\,\hat a\dg & 0 \\[9pt]
-    \lambda\,\hat a & \delta + \dfrac{\Om_c^2}{4\Delta} & \Omu/2 \\[9pt]
-    0 & \Omu/2 & \delta
+    -\dfrac{g_0^2 a\dg a}{\Delta} & -\lambda\,a\dg & 0 \\[9pt]
+    -\lambda\,a & \delta - \dfrac{\Om_c^2}{4\Delta} & \Omu/2 \\[9pt]
+    0 & \Omu/2 & \delta+\Dmu
   \end{pmatrix},
   \qquad
   \boxed{\ \lambda = \frac{g_0\Om_c}{2\Delta}\ }
   \label{eq:H3}
 \end{equation}
-Three things were produced. The off-diagonal $\lambda\hat a$ is the \emph{two-photon Raman
-coupling} $\ket{1}\!\leftrightarrow\!\ket{3}$ we want. The diagonal entries are light shifts:
-$\Om_c^2/4\Delta$ on $\ket{3}$, which we absorb by redefining
-$\delta \to \delta + \Om_c^2/4\Delta$, and $g_0^2\hat a\dg\hat a/\Delta$ on $\ket{1}$, a
-photon-number-dependent (Kerr) shift which is negligible for
-$g_0^2\langle\hat a\dg\hat a\rangle \ll |\Delta|\,\omega_c$ and which we drop.
+The off-diagonal $\lambda a$ is the two-photon Raman coupling we want. The diagonal entries are
+light shifts: $-\Om_c^2/4\Delta$ on $\ket{3}$, absorbed by redefining $\delta$, and a
+photon-number-dependent shift on $\ket{1}$, negligible for
+$g_0^2\langle a\dg a\rangle\ll|\Delta|\,\omega_c$. The overall sign of $\lambda$ is a phase
+convention and we drop it.
 
 \begin{keybox}
-\textbf{Practical warning.} Both $\lambda$ and the light shift $\Om_c^2/4\Delta$ scale with the
-control-laser intensity. The shift adds directly to $\delta$, which is the same channel the
-measurand uses --- so control-laser intensity noise is indistinguishable from signal. This is
-the dominant technical systematic of the scheme, not a detail.
+\textbf{Where the dominant systematic comes from.} $\lambda\propto\Om_c$ and the light shift
+$\propto\Om_c^2$ both track the control-laser intensity, and the shift adds \emph{directly} to
+$\delta$ --- the same channel the measurand uses. Control-laser intensity noise is therefore
+structurally indistinguishable from signal.
 \end{keybox}
 
-\section{Step 2: rotate into the dressed Rydberg basis}
+\section{Step 4: dress the Rydberg pair}
 
-The lower-right $2\times2$ block of Eq.~\eqref{eq:H3} is the microwave problem alone:
+The lower-right block of Eq.~\eqref{eq:H3} is a two-level problem on its own:
 \begin{equation}
-  H_\mu = \begin{pmatrix} \delta & \Omu/2 \\ \Omu/2 & \delta \end{pmatrix}
-  = \delta\,\mathbf{1} + \frac{\Omu}{2}\sigma_x .
+  H_\mu=\begin{pmatrix}\delta & \Omu/2\\ \Omu/2 & \delta+\Dmu\end{pmatrix}
+      = \Bigl(\delta+\tfrac{\Dmu}{2}\Bigr)\mathbf{1}
+        + \tfrac12\bigl(\Omu\,\sigma_x + \Dmu\,\sigma_z\bigr).
 \end{equation}
-Diagonalise it with the orthogonal rotation
+Diagonalise with the rotation $R(\theta)$ defined by
 \begin{equation}
-  R = \frac{1}{\sqrt2}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},
+  \tan\theta = \frac{\Omu}{\Dmu},
   \qquad
-  \ket{\pm} = \frac{\ket{3}\pm\ket{4}}{\sqrt2},
+  \ket{+} = \sin\tfrac\theta2\ket{3}+\cos\tfrac\theta2\ket{4},
   \qquad
-  R\dg H_\mu R = \begin{pmatrix} \omega_+ & 0\\ 0 & \omega_-\end{pmatrix},
+  \ket{-} = \cos\tfrac\theta2\ket{3}-\sin\tfrac\theta2\ket{4},
 \end{equation}
+giving the \emph{generalised Rabi} splitting
 \begin{equation}
-  \boxed{\ \omega_\pm = \delta \pm \frac{\Omu}{2}\ }
+  \boxed{\ \omega_\pm=\delta+\frac{\Dmu}{2}\pm\frac{W}{2},
+  \qquad W=\sqrt{\Omu^{2}+\Dmu^{2}}\ }
   \label{eq:branches}
 \end{equation}
-These are the Autler--Townes doublet: \emph{the measurand has become a pair of level
-positions}. Now apply the same rotation to the whole $3\times3$ matrix. The only subtlety is
-what happens to the Raman coupling, which connects $\ket{1}$ to the \emph{bare} $\ket{3}$:
-\begin{equation}
-  \ket{3} = \frac{\ket{+}+\ket{-}}{\sqrt2}
-  \qquad\Longrightarrow\qquad
-  \lambda\,\hat a\,\ket{3}\bra{1}
-  = \frac{\lambda}{\sqrt2}\,\hat a\,\bigl(\ket{+}\bra{1} + \ket{-}\bra{1}\bigr).
-\end{equation}
-In the basis $(\ket{g},\ket{+},\ket{-})$,
+Now rotate the rest of Eq.~\eqref{eq:H3}. The Raman coupling connects $\ket{1}$ to the
+\emph{bare} $\ket{3}=\sin\tfrac\theta2\ket{+}+\cos\tfrac\theta2\ket{-}$, so it splits between
+the branches in that ratio. In the basis $(\ket{g},\ket{+},\ket{-})$:
 \begin{equation}
   \boxed{\;
-  H_{\rm at}^{(3)} =
-  \begin{pmatrix}
-    0 & \dfrac{\lambda}{\sqrt2}\hat a\dg & \dfrac{\lambda}{\sqrt2}\hat a\dg \\[10pt]
-    \dfrac{\lambda}{\sqrt2}\hat a & \omega_+ & 0 \\[10pt]
-    \dfrac{\lambda}{\sqrt2}\hat a & 0 & \omega_-
-  \end{pmatrix}\;}
+  H^{(3)}=\begin{pmatrix}
+    0 & g_+ a\dg & g_- a\dg\\[3pt]
+    g_+ a & \omega_+ & 0\\[3pt]
+    g_- a & 0 & \omega_-
+  \end{pmatrix},
+  \qquad
+  g_+=\lambda\sin\tfrac\theta2,\quad g_-=\lambda\cos\tfrac\theta2 \;}
   \label{eq:core}
 \end{equation}
-This matrix is the heart of the reduction, and it says three things worth stating plainly:
-\begin{enumerate}\itemsep2pt
-  \item \textbf{Both} dressed states couple to $\ket{g}$ --- there is no basis in which only
-        one does.
-  \item They couple \textbf{equally}, each with $\lambda/\sqrt2$. The dressing is symmetric;
-        nothing here distinguishes $\ket{+}$ from $\ket{-}$.
-  \item There is \textbf{no} $\ket{+}\!\leftrightarrow\!\ket{-}$ entry. That transition is the
-        microwave one and carries no cavity matrix element.
-\end{enumerate}
-The asymmetry that eventually appears comes only from $\delta$, through
-Eq.~\eqref{eq:branches}, and from which state the atoms are actually prepared in.
+There is no $\ket{+}\!\leftrightarrow\!\ket{-}$ entry: that transition is the microwave one and
+carries no cavity matrix element.
 
-\section{Step 3: many atoms}
-
-Take $N$ atoms, all initially in $\ket{g}$, and work at low excitation,
-\begin{equation}
-  n_+ + n_- \ll N .
-  \tag{C2}
-\end{equation}
-Holstein--Primakoff then replaces each collective excitation by a boson: $\ket{g}$ becomes the
-vacuum, and $b_\pm\dg$ creates one atom in $\ket{\pm}$, spread coherently over the ensemble.
-The couplings add constructively, so $\lambda \to \lambda\sqrt N$. Writing
-\begin{equation}
-  G \equiv \lambda\sqrt{N} = \frac{g_0\Om_c\sqrt N}{2\Delta},
-\end{equation}
-and keeping for now only the co-rotating terms that Eq.~\eqref{eq:core} supplies,
-\begin{equation}
-  H = \omega_c \hat a\dg\hat a + \omega_+ b_+\dg b_+ + \omega_- b_-\dg b_-
-      + \frac{G}{\sqrt2}\bigl(\hat a\dg b_+ + \hat a\dg b_- + \text{h.c.}\bigr).
-  \label{eq:TC2}
-\end{equation}
-Equation~\eqref{eq:TC2} conserves the total excitation number, so starting from
-$\ket{g,0}$ nothing happens: it is an exact eigenstate. To obtain a Dicke model one must add
-counter-rotating terms $\hat a\dg b_\pm\dg + \text{h.c.}$, which is done by driving with two
-tones (or one modulated tone) so that a second Raman channel creates a cavity photon
-\emph{and} excites the atom. With both present,
-\begin{equation}
-  \boxed{\;
-  H = \omega_c \hat a\dg\hat a + \sum_{s=\pm}\Bigl[\omega_s b_s\dg b_s
-      + \frac{G}{\sqrt2}\bigl(\hat a+\hat a\dg\bigr)\bigl(b_s+b_s\dg\bigr)\Bigr]\;}
-  \label{eq:dicke2}
-\end{equation}
---- a Dicke model with \emph{two} atomic modes.
-
-\section{Step 4: the threshold}
-
-Write Eq.~\eqref{eq:dicke2} in quadratures $x_j=(o_j+o_j\dg)/\sqrt2$. The potential energy is
-$\tfrac12\,\bm{x}^{\!\top} V \bm{x}$ with $\bm{x}=(x_a,x_+,x_-)$ and
-\begin{equation}
-  V = \begin{pmatrix}
-        \omega_c & \sqrt2\,G & \sqrt2\,G \\
-        \sqrt2\,G & \omega_+ & 0 \\
-        \sqrt2\,G & 0 & \omega_-
-      \end{pmatrix}.
-\end{equation}
-The normal phase (all atoms in $\ket{g}$, cavity dark) is stable while $V$ is positive
-definite. It loses stability when $\det V=0$, and using $\omega_++\omega_-=2\delta$,
-\begin{equation}
-  \det V = \omega_c\,\omega_+\omega_- - 2G^2(\omega_++\omega_-)
-  \qquad\Longrightarrow\qquad
-  \boxed{\ \omega_c\,\omega_+\omega_- = 4G^2\delta\ }
-  \label{eq:threshold}
-\end{equation}
-This is the general result. Note that positive definiteness also requires $\omega_->0$: if the
-lower dressed state drops below $\ket{g}$, the normal phase fails for a mundane reason --- a
-two-photon resonance --- and not by symmetry breaking.
-
-\subsection*{The two-level limit}
-
-Suppose the microwave splitting is large, so that one branch is far off resonance:
-\begin{equation}
-  \Omu \;\gg\; \omega_-,\;\; G,\;\; \omega_c
-  \qquad\Longrightarrow\qquad \omega_+ \simeq 2\delta \gg \omega_- .
-  \tag{C3}
-\end{equation}
-Then $4G^2\delta \simeq 2G^2\omega_+$, and Eq.~\eqref{eq:threshold} collapses to
-\begin{equation}
-  \boxed{\ \omega_c\,\omega_- = 2G^2 \ }
-  \qquad\text{i.e.}\qquad
-  G_{\rm eff}\equiv\frac{G}{\sqrt2},\quad
-  G_{\rm eff}^{\rm c} = \tfrac12\sqrt{\omega_c\,\omega_-},
-\end{equation}
-which is exactly the textbook two-level Dicke threshold for a spin with splitting $\omega_-$
-coupled at $G/\sqrt2$. \emph{This} is the effective two-level model: the levels are $\ket{g}$
-and the \emph{near-resonant} dressed state, and the coupling carries a factor $1/\sqrt2$ from
-the dressing. Dropping the far branch without the $1/\sqrt2$, or building the spin on the far
-branch instead of the near one, both give wrong answers.
-
-\section{Summary of the reduction}
+\subsection*{The two limits, and why they are the whole story}
 
 \begin{center}\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{3.7cm}>{\raggedright\arraybackslash}p{7.4cm}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{5.0cm}>{\raggedright\arraybackslash}p{5.6cm}@{}}
 \toprule
-\textbf{Step} & \textbf{Condition} & \textbf{What it buys, and what breaks without it}\\
+& \textbf{Resonant:} $\Dmu=0$ & \textbf{Far detuned:} $|\Dmu|\gg\Omu$\\
 \midrule
-Rotating frame + RWA & optical frequencies $\gg$ all Rabi rates & Eq.~\eqref{eq:H4};
-  $\omega_c,\delta$ become tunable detunings, not optical frequencies\\
-Eliminate $\ket{2}$ & $|\Delta|\gg\Om_c,\,g_0\sqrt{\bar n},\,\Gamma_e$ &
-  Raman coupling $\lambda=g_0\Om_c/2\Delta$; leaves light shifts, one of which is the dominant
-  systematic\\
-Dress $\ket{3},\ket{4}$ & microwave near resonance &
-  $\omega_\pm=\delta\pm\Omu/2$: the measurand becomes a level position\\
-Holstein--Primakoff & $n_++n_-\ll N$ &
-  collective enhancement $\lambda\to G=\lambda\sqrt N$\\
-Add counter-rotating & second drive tone &
-  without it, excitation number is conserved and $\ket{g,0}$ never evolves\\
-Drop the far branch & $\Omu\gg\omega_-,G,\omega_c$ &
-  the two-level Dicke model, coupling $G/\sqrt2$, spin splitting $\omega_-$\\
+mixing angle & $\theta=\pi/2$ & $\theta\to0$\\
+branches & $\ket{\pm}=(\ket{3}\pm\ket{4})/\sqrt2$ & $\ket{-}\to\ket{3}$, $\ket{+}\to\ket{4}$\\
+splitting $W$ & $\Omu$ \ (linear in $E_\mu$) & $|\Dmu|+\Omu^2/2|\Dmu|$\\
+couplings & $g_\pm=\lambda/\sqrt2$ \ (equal) & $g_-\to\lambda$, $g_+\to0$ \ (one branch)\\
+shift of the coupled level & $\pm\Omu/2$, \textbf{linear} & $-\Omu^2/4\Dmu$, \textbf{quadratic}\\
+this is & Autler--Townes & AC Stark\\
+used by & this proposal & Ding \emph{et al.}, Wang \emph{et al.}\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\vspace{2mm}
-\noindent The chain of reasoning is: four levels $\to$ (eliminate $\ket{e}$) $\to$ three levels
-$\to$ (dress) $\to$ $\ket{g}$ plus two branches $\to$ (many atoms, counter-rotating terms)
-$\to$ two-branch Dicke $\to$ (one branch far detuned) $\to$ two-level Dicke. The last arrow is
-the only one that is optional, and it is the one most easily got wrong.
+\noindent One mixing angle therefore separates the two ways of doing Rydberg electrometry. On
+resonance the measurand enters as a level \emph{splitting}, linear in $E_\mu$ with the exact
+dipole scale factor, at the price of two branches that both couple. Far detuned it enters as a
+\emph{shift}, quadratic in $E_\mu$ with a polarizability-dependent factor, but the model is
+genuinely two-level. There is no setting that gives both.
+
+\section{Step 5: many atoms, and the Dicke form}
+
+Take $N$ atoms in $\ket{g}$ and work at low excitation, $n_++n_-\ll N$ (A3). Holstein--Primakoff
+replaces each collective excitation by a boson $b_\pm$, and the couplings add constructively,
+$\lambda\to\lambda\sqrt N$. Write $G_\pm = \sqrt N\,g_\pm$. Equation~\eqref{eq:core} then gives
+\begin{equation}
+  H=\omega_c a\dg a+\sum_{s=\pm}\Bigl[\omega_s b_s\dg b_s + G_s\bigl(a\dg b_s+a b_s\dg\bigr)\Bigr],
+\end{equation}
+which conserves excitation number: starting from $\ket{g,0}$ nothing ever happens, since it is
+an exact eigenstate. A Dicke model requires the counter-rotating terms $a\dg b_s\dg + ab_s$ as
+well, supplied by a second drive tone (or one modulated tone). With both,
+\begin{equation}
+  \boxed{\;H=\omega_c a\dg a+\sum_{s=\pm}\Bigl[\omega_s b_s\dg b_s
+      + G_s\,(a+a\dg)(b_s+b_s\dg)\Bigr]\;}
+  \label{eq:dicke}
+\end{equation}
+
+\section{Step 6: the threshold}
+
+In quadratures $x_j=(o_j+o_j\dg)/\sqrt2$ the potential energy is $\tfrac12\bm{x}^{\!\top}V\bm{x}$,
+\begin{equation}
+  V=\begin{pmatrix}
+      \omega_c & 2G_+ & 2G_-\\
+      2G_+ & \omega_+ & 0\\
+      2G_- & 0 & \omega_-
+    \end{pmatrix}.
+\end{equation}
+The normal phase (all atoms in $\ket{g}$, cavity dark) is stable while $V$ is positive definite,
+and loses stability at $\det V=0$:
+\begin{equation}
+  \boxed{\ \omega_c\,\omega_+\omega_- \;=\; 4\bigl(G_+^2\,\omega_- + G_-^2\,\omega_+\bigr)\ }
+  \label{eq:threshold}
+\end{equation}
+Positive definiteness also demands $\omega_->0$; if the lower branch falls below $\ket{g}$ the
+normal phase fails for a mundane reason --- a two-photon resonance --- rather than by symmetry
+breaking. With $G=\lambda\sqrt N$ the two limits read
+\begin{align}
+  \Dmu=0:&\qquad \omega_c\,\omega_+\omega_- = 2G^2(\omega_++\omega_-)=4G^2\delta,\\
+  |\Dmu|\gg\Omu:&\qquad \omega_c\,\omega_- = 4G^2 ,
+\end{align}
+the second being the textbook two-level Dicke threshold $G^{\rm c}=\tfrac12\sqrt{\omega_c\omega_-}$
+for a spin of splitting $\omega_-$. \emph{This} is the effective two-level model --- and it is
+legitimate only in the far-detuned limit, where the measurand has become quadratic.
+
+\section{Summary}
+
+\begin{center}\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{7.0cm}@{}}
+\toprule
+\textbf{Step} & \textbf{Condition} & \textbf{Effect}\\
+\midrule
+Rotating frame & exact & subtracts the drive frequencies; the $10$~GHz
+  $\ket{3}$--$\ket{4}$ splitting becomes $\Dmu$\\
+RWA & $g_0,\Om_c,\Omu\ll\omega_L,\nu_c,\nu_\mu$ & removes all time dependence; Eq.~\eqref{eq:H4}\\
+Eliminate $\ket{2}$ & $|\Delta|\gg\Om_c,g_0\sqrt{\bar n},\Gamma_e$ &
+  $\lambda=g_0\Om_c/2\Delta$, plus light shifts (the dominant systematic)\\
+Dress $\ket{3},\ket{4}$ & exact & $\omega_\pm=\delta+\Dmu/2\pm W/2$, couplings
+  $\lambda\sin\tfrac\theta2$, $\lambda\cos\tfrac\theta2$\\
+Holstein--Primakoff & $n_++n_-\ll N$ & $\lambda\to G=\lambda\sqrt N$\\
+Counter-rotating & second drive tone & without it $\ket{g,0}$ is an eigenstate and nothing radiates\\
+Two-level limit & $|\Dmu|\gg\Omu$ & one branch decouples; measurand becomes quadratic\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Only the last step is optional, and it is the one that decides what kind of sensor
+this is.
 
 \end{document}
