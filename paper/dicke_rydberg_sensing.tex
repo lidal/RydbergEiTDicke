@@ -636,6 +636,42 @@ cavity, but whether that survives into steady state depends on repumping and nee
 driven-dissipative calculation. The safe statement is that any brightness there is downhill
 decay, not symmetry breaking, and Protocol~B should not be locked to it.
 
+\paragraph{Why not lock to the \emph{lower} edge instead?} It is the better calibration, and
+the question repairs the retraction above. The lower edge is $\omega_-=0$, i.e.
+\begin{equation}
+  \delta_{\rm lo} = \frac{\Omu}{2} \qquad\text{exactly, at every field,}
+\end{equation}
+so it is \emph{exactly} proportional to $E_\mu$, passes through the origin, and has slope
+$d/2\hbar=1.1355$~MHz/(mV\,cm$^{-1}$) with no offset, no low-field roll-off and \emph{no bias
+field required}. Against it the upper edge manages only $23\%$ of that slope at
+$0.05$~mV/cm, $42\%$ at $0.1$ and $92\%$ at $0.5$. Metrologically the lower edge wins outright.
+
+The catch is what it is. $\omega_-=0$ is the two-photon resonance with the lower dressed state
+--- which is \emph{precisely} the Autler--Townes condition. Locking to it is Autler--Townes
+electrometry, with Autler--Townes' linewidth-limited resolution, and neither the criticality
+nor the cavity is doing any work. So the lower edge cannot carry a novelty claim; it can only
+carry the calibration.
+
+There is a further awkwardness worth stating. Across the window the emission is
+\emph{maximal} at the lower edge, $\bar n\to\lambda^2/\omega^2=0.1225$, and falls to
+\emph{zero} at the upper one --- as it must, the order parameter vanishing at a second-order
+critical point. The bright signal lives at the resonance; the critical point is where the
+light goes out. That is why Protocol~A biases just \emph{above} threshold rather than at it,
+and it sharpens the question of what criticality actually buys here. On the evidence
+assembled so far the answer is transduction gain and squeezing
+(Secs.~\ref{sec:open},~\ref{sec:budget}), not calibration quality.
+
+\paragraph{Use both edges.} The two together are worth more than either alone. The lower edge
+gives $E_\mu$ exactly and traceably; the \emph{width} of the window gives
+\begin{equation}
+  \delta_{\rm th}-\frac{\Omu}{2} \;=\; \omega_-^{\rm th} \;\longrightarrow\; \frac{2\lambda^2}{\omega},
+\end{equation}
+field-independent to $5\%$ by $E_\mu=2$~mV/cm and $0.5\%$ by $20$~mV/cm. A single detuning
+scan therefore returns both the microwave field and a live in-situ measurement of
+$\lambda^2/\omega$ --- which is exactly the combination whose drift, through the Raman light
+shift, is the dominant systematic of Sec.~\ref{sec:budget}. That is a genuinely useful
+self-diagnostic and it costs nothing extra.
+
 \paragraph{What breaks the $\ket{+}/\ket{-}$ symmetry? Only the reference state.} The
 asymmetry above deserves an explanation, because nothing in the Hamiltonian supplies one: the
 microwave dressing is symmetric and the cavity couples to both branches with the same
@@ -698,10 +734,12 @@ $\partial\delta_{\rm th}/\partial E_\mu$ [MHz/(mV/cm)] & $0.256$ & $0.478$ & $0.
 \end{tabular}
 \end{center}
 
-\noindent This is a material retraction. The claim that Route~II keeps a linear,
-dipole-traceable coupling \emph{without} a bias field --- advanced in
-Sec.~\ref{sec:prior} as an advantage over Refs.~\cite{Ding2022,Wang2025} --- does not
-survive. Both routes need a bias, exactly as the incumbent does. What survives is narrower
+\noindent This is a material retraction \emph{for the upper edge}. The claim that Route~II
+keeps a linear, dipole-traceable coupling \emph{without} a bias field --- advanced in
+Sec.~\ref{sec:prior} as an advantage over Refs.~\cite{Ding2022,Wang2025} --- does not survive
+at the critical point. It does survive at the \emph{lower} edge, $\delta_{\rm lo}=\Omu/2$,
+which is exactly linear and unbiased (see below) --- but that edge is the Autler--Townes
+resonance, so it buys calibration without criticality. Both routes need a bias, exactly as the incumbent does. What survives is narrower
 but still real: once a microwave local oscillator supplies $\Omu\gg2\lambda^2/\omega$, the
 response here is \emph{exactly} linear with the dipole-referenced slope $d/2\hbar$, whereas
 the incumbent remains a quadratic Stark response linearised about its bias with a fitted
