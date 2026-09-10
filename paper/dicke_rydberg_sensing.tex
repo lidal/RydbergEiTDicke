@@ -615,6 +615,40 @@ against the asymptote $0.245$. So the whole window slides rigidly with the micro
 (Fig.~\ref{fig:protocolB}a). Protocol~B locks to the upper edge, which is the genuine
 critical point.
 
+\paragraph{Is there a second, mirror-image edge at negative detuning?} The threshold condition
+is a quadratic, $\omega\delta^2-4\lambda^2\delta-\omega\Omu^2/4=0$, so it always has two roots,
+one of each sign, with the pleasing relations
+\begin{equation}
+  \delta_+\delta_- = -\Omu^2/4, \qquad \delta_+ + \delta_- = 4\lambda^2/\omega .
+\end{equation}
+It is natural to read this as a symmetric pair of superradiant edges. It is not.
+Figure~\ref{fig:roots} scans the potential matrix through both roots: $\det V$ does change sign
+at each, but the smallest eigenvalue of $V$ crosses zero only \emph{once}, at $\delta_+$. The
+normal phase is a minimum only for $\delta>\delta_+$. Everywhere below $\delta=\Omu/2$ the mode
+$\omega_-$ is already negative, so $\ket{g}$ fails to be a minimum for a mundane reason --- the
+lower dressed state lies below $\ket{g}$ in the rotating frame, a two-photon resonance --- and
+$\delta_-$ sits deep inside that region without marking any change of phase. There is one
+critical point, not two.
+
+What a real $\delta$ scan would show below $\Omu/2$ is a separate question this stability
+analysis cannot answer: atoms resonantly pumped from $\ket{g}$ into $\ket{-}$ emit into the
+cavity, but whether that survives into steady state depends on repumping and needs a
+driven-dissipative calculation. The safe statement is that any brightness there is downhill
+decay, not symmetry breaking, and Protocol~B should not be locked to it.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.86\textwidth]{../figs/fig7_roots.pdf}
+  \caption{\textbf{Two roots, one critical point} ($\omega/2\pi=1$~MHz,
+  $\lambda/2\pi=0.35$~MHz, $E_\mu=2$~mV/cm, so $\Omu/2=2\pi\times2.271$~MHz).
+  (a) $\det V$ is an upward parabola in $\delta$ with roots $\delta_-=-2.039$ and
+  $\delta_+=+2.529$~MHz$/2\pi$, obeying $\delta_+\delta_-=-\Omu^2/4$.
+  (b) The smallest eigenvalue of $V$, however, crosses zero only at $\delta_+$. Below
+  $\delta=\Omu/2$ the normal phase is already not a minimum because $\omega_-<0$, so
+  $\delta_-$ marks no transition.}
+  \label{fig:roots}
+\end{figure}
+
 \paragraph{The scale factor is exact only above a bias field.} Equation~\eqref{eq:slopeB}
 also shows the slope \emph{vanishing} as $\Omu\to0$: with the two branches degenerate their
 responses cancel, and the sensor has no sensitivity at zero field. For
