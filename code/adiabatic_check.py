@@ -56,19 +56,19 @@ if __name__ == "__main__":
         print(f"  exact {a.real:+12.8f}   effective {b.real:+12.8f}   "
               f"diff {abs(a-b):.2e}")
 
-    print("\nVerify the derived error formula  dE = E <V V^dag> / Delta^2,")
-    print("  with <V V^dag> = g0^2<n> P_1 + (Omc^2/4) P_3 in the state itself.")
-    print(f"  {'Delta':>6} {'E':>11} {'P1':>6} {'P3':>6} {'|dE| meas':>11} "
-          f"{'predicted':>11} {'ratio':>6}")
-    for D in [100.0, 200.0, 400.0]:
+    print("\nVerify the error formula  E_exact - E_eff = -E |c2|^2,")
+    print("  i.e. the fractional energy error is the residual |2> population.")
+    print(f"  {'Delta':>6} {'E':>11} {'|c2|^2':>10} {'measured':>11} "
+          f"{'predicted':>11} {'ratio':>7}")
+    for D in [50.0, 100.0, 200.0, 400.0]:
         ee = compare(D=D, **base)[0].real
         w, v = np.linalg.eigh(H_eff(D=D, **base).real)
+        Vc = np.array([base['g0'], base['Omc']/2, 0.0])     # couplings to |2>
         for k in range(3):
-            P1, P3 = v[0, k]**2, v[1, k]**2
-            pred = abs(w[k])*(base['g0']**2*P1 + base['Omc']**2/4*P3)/D**2
-            meas = abs(ee[k] - w[k])
-            print(f"  {D:6.0f} {w[k]:+11.6f} {P1:6.3f} {P3:6.3f} {meas:11.3e} "
-                  f"{pred:11.3e} {meas/pred:6.3f}")
+            c2sq = ((Vc @ v[:, k])/(w[k] - D))**2
+            meas, pred = ee[k] - w[k], -w[k]*c2sq
+            print(f"  {D:6.0f} {w[k]:+11.6f} {c2sq:10.3e} {meas:+11.3e} "
+                  f"{pred:+11.3e} {meas/pred:7.4f}")
 
     print("\nVerify the inherited decay rates (isolate each channel)")
     Gam = 6.0
