@@ -21,7 +21,7 @@
 \newcommand{\Omu}{\Omega_{\mu}}
 \newcommand{\Dmu}{\Delta_{\mu}}
 
-\newmdenv[linecolor=Navy,linewidth=0.8pt,backgroundcolor=Navy!4,
+\newmdenv[linecolor=Navy,linewidth=0.8pt,backgroundcolor=Navy!4,nobreak=true,
           roundcorner=3pt,innertopmargin=7pt,innerbottommargin=7pt]{keybox}
 
 \title{\bfseries From four levels to the Dicke model\\[3pt]
@@ -35,15 +35,16 @@
 
 \begin{abstract}\noindent
 A companion note reduces the four-level cavity Rydberg-EIT problem all the way to a Dicke
-model. Here we stop two steps earlier, at the three-level cavity Hamiltonian
-$H^{(3)}$ of Eq.~\eqref{eq:core}, and spend the space instead on Step~3 --- the adiabatic
-elimination of the intermediate state $\ket{2}$ --- which is where the Raman coupling
-$\lambda=g_0\Om_c/2\Delta$, the light shifts, and the residual spontaneous emission all come
-from. Doing it explicitly pays for itself three times: the rank-one structure of the coupling
-shows that $\lambda$ and the dominant systematic cannot be tuned independently; the same
-algebra returns the error of the reduction with no fitted constant, verified here against exact
-diagonalisation; and the invariant $\lambda^2/\gamma_3=g_0^2/\Gamma_e$ shows that neither the
-detuning nor the control power improves the sensor, only atom number and cavity finesse.
+model. Here we stop two steps earlier, at the three-level cavity Hamiltonian $H^{(3)}$ of
+Eq.~\eqref{eq:core}, and spend the space instead on Step~3 --- the elimination of the
+intermediate state $\ket{2}$, which is where the Raman coupling $\lambda=g_0\Om_c/2\Delta$, the
+light shifts and the residual spontaneous emission all come from. One line of second-order
+perturbation theory does it, $H^{\rm eff}_{mn}=\tilde H_{mn}-V_mV_n\dg/\Delta$, and that one
+line pays for itself three times: its rank-one structure shows that $\lambda$ and the dominant
+systematic cannot be tuned independently; putting $\Gamma_e$ in the denominator returns the
+inherited decay rates and the invariant $\lambda^2/\gamma_3=g_0^2/\Gamma_e$, which says neither
+the detuning nor the control power improves the sensor; and keeping the next order returns the
+error of the reduction, verified against exact diagonalisation with no fitted constant.
 Throughout $\hbar=1$.
 \end{abstract}
 
@@ -127,79 +128,49 @@ The result is time-independent and still exact to this order:
 \end{equation}
 Note the matrix is tridiagonal: each field connects only neighbouring levels.
 
-\section{Step 3: eliminate the intermediate state, in full}
+\section{Step 3: eliminate the intermediate state}
 
-This is the step that does the real work, so we do it slowly. Nothing below is new physics;
-the point is that every factor in $\lambda=g_0\Om_c/2\Delta$ can be traced, and that the same
-algebra hands us the size of the error and the price paid in spontaneous emission.
+$\ket{2}$ sits $\Delta\sim2\pi\times100$~MHz away from anything that drives it, so it is never
+appreciably populated; its only job is to relay. That is precisely the situation second-order
+perturbation theory was built for, and one formula does the whole step.
 
-\subsection{Partition the space}
+\subsection{One formula}
 
-Split the four levels into the ones we want to keep and the one we want gone,
+List the couplings that reach $\ket{2}$ from the states we keep. Reading the second column of
+Eq.~\eqref{eq:H4},
 \begin{equation}
-  P = \sigma_{11}+\sigma_{33}+\sigma_{44}, \qquad Q = \sigma_{22},
-  \qquad P+Q=\mathbf{1}, \qquad PQ=0 .
+  V_m \equiv \bra{m}\tilde H\ket{2}: \qquad
+  V_1 = g_0\,a\dg, \qquad V_3 = \Om_c/2, \qquad V_4 = 0 .
+  \label{eq:Vm}
 \end{equation}
-Reordering Eq.~\eqref{eq:H4} as $(\ket{1},\ket{3},\ket{4}\,;\,\ket{2})$ puts it in block form
+The $V_m$ are operators on the cavity, not numbers, and $V_4=0$ says the microwave never
+touches $\ket{2}$. Quasi-degenerate second-order perturbation theory then gives the effective
+Hamiltonian on $\{\ket{1},\ket{3},\ket{4}\}$ as
 \begin{equation}
-  \tilde H = \omega_c\,a\dg a
-  + \begin{pmatrix} H_{P} & V \\[2pt] V\dg & \Delta \end{pmatrix},
-  \qquad
-  H_P=\begin{pmatrix} 0&0&0\\ 0&\delta&\Omu/2\\ 0&\Omu/2&\delta+\Dmu\end{pmatrix},
-  \qquad
-  V=\begin{pmatrix} g_0\,a\dg \\[2pt] \Om_c/2 \\[2pt] 0\end{pmatrix}.
-  \label{eq:block}
+  \boxed{\ H^{\rm eff}_{mn} = \tilde H_{mn} - \frac{V_m V_n\dg}{\Delta}\ }
+  \qquad m,n\in\{1,3,4\} ,
+  \label{eq:pt}
 \end{equation}
-$V$ is a $3\times1$ column whose entries are cavity operators: it is the only thing that
-connects the two blocks, and $\ket{4}$ does not appear in it at all --- the microwave never
-touches $\ket{2}$. Everything that follows is built from $V$.
+one term per \emph{path} $m\to2\to n$: two matrix elements over one energy denominator. (The
+denominator is properly $\tfrac12[(E_m-\Delta)^{-1}+(E_n-\Delta)^{-1}]$, but $E_{1,3,4}=0,\delta,
+\delta+\Dmu$ are all $\sim$MHz against $\Delta\sim100$~MHz, so $-1/\Delta$ it is; the
+$\delta/\Delta$ correction is smaller than the error we quantify in \S\ref{sec:err}.)
 
-\subsection{The elimination}
-
-Expand the state as $\ket{\Psi}=\sum_j \ket{j}\otimes\ket{\phi_j}$, where the $\ket{\phi_j}$ are
-(unnormalised) cavity states. Reading the rows of Eq.~\eqref{eq:H4} off directly,
-\begin{align}
-  i\,\partial_t\ket{\phi_1} &= \omega_c a\dg a\ket{\phi_1} + g_0\,a\dg\ket{\phi_2},
-    \label{eq:c1}\\
-  i\,\partial_t\ket{\phi_2} &= \omega_c a\dg a\ket{\phi_2}
-     + \Delta\ket{\phi_2} + g_0\,a\ket{\phi_1} + \tfrac{\Om_c}{2}\ket{\phi_3},
-    \label{eq:c2}\\
-  i\,\partial_t\ket{\phi_3} &= \omega_c a\dg a\ket{\phi_3}
-     + \delta\ket{\phi_3} + \tfrac{\Om_c}{2}\ket{\phi_2} + \tfrac{\Omu}{2}\ket{\phi_4},
-    \label{eq:c3}\\
-  i\,\partial_t\ket{\phi_4} &= \omega_c a\dg a\ket{\phi_4}
-     + (\delta+\Dmu)\ket{\phi_4} + \tfrac{\Omu}{2}\ket{\phi_3}.
-\end{align}
-Only Eq.~\eqref{eq:c2} has a large coefficient. Move to the frame that removes the slow
-diagonal terms, $\ket{\phi_j}=e^{-i\omega_c a\dg a\,t}e^{-i\epsilon_j t}\ket{\chi_j}$ with
-$\epsilon_{1,3,4}=0,\delta,\delta+\Dmu$. Equation~\eqref{eq:c2} becomes
-\begin{equation}
-  i\,\partial_t\ket{\chi_2} = \Delta\ket{\chi_2}
-   + \underbrace{g_0\,a\,e^{-i\omega_c t}\ket{\chi_1}
-     + \tfrac{\Om_c}{2}e^{-i\delta t}\ket{\chi_3}}_{\textstyle S(t)} ,
-\end{equation}
-a driven first-order equation whose source $S(t)$ has amplitude $\sim g_0\sqrt{\langle n\rangle},
-\Om_c/2$ and turns over at rates $\omega_c,\delta$. If $|\Delta|$ dominates all four of those,
-$\ket{\chi_2}$ has no time to build up: it locks to the instantaneous value that makes the
-right-hand side vanish, $\ket{\chi_2}\simeq -S(t)/\Delta$. Back in the original frame,
-\begin{equation}
-  \boxed{\ \ket{\phi_2} \;\simeq\; -\frac{1}{\Delta}
-    \Bigl(g_0\,a\ket{\phi_1} + \tfrac{\Om_c}{2}\ket{\phi_3}\Bigr)\ }
-  \label{eq:slave}
-\end{equation}
-$\ket{2}$ is no longer a degree of freedom; it is a \emph{shadow} of the two states that drive
-it. Substitute Eq.~\eqref{eq:slave} wherever $\ket{\phi_2}$ appears. In Eq.~\eqref{eq:c1},
-\begin{equation}
-  g_0\,a\dg\ket{\phi_2} = -\frac{g_0^2}{\Delta}\,a\dg a\ket{\phi_1}
-      - \frac{g_0\Om_c}{2\Delta}\,a\dg\ket{\phi_3},
-\end{equation}
-and in Eq.~\eqref{eq:c3},
-\begin{equation}
-  \tfrac{\Om_c}{2}\ket{\phi_2} = -\frac{g_0\Om_c}{2\Delta}\,a\ket{\phi_1}
-      - \frac{\Om_c^{2}}{4\Delta}\ket{\phi_3}.
-\end{equation}
-Two terms of each kind, four in all, and they assemble into a $3\times3$ matrix in
-$\{\ket{1},\ket{3},\ket{4}\}$:
+Four paths are non-zero, and evaluating them is the entire step:
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+path & $V_mV_n\dg$ & contributes & is \\
+\midrule
+$1\to2\to1$ & $g_0a\dg\cdot g_0a=g_0^2\,a\dg a$ & $-g_0^2 a\dg a/\Delta$ & a cavity shift\\
+$3\to2\to3$ & $\Om_c^2/4$ & $-\Om_c^2/4\Delta$ & a light shift on $\ket{3}$\\
+$1\to2\to3$ & $g_0a\dg\cdot\Om_c/2$ & $-\lambda\,a\dg$ & \textbf{the Raman coupling}\\
+$3\to2\to1$ & $\Om_c/2\cdot g_0 a$ & $-\lambda\,a$ & its conjugate\\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{2pt}
+Anything involving $\ket{4}$ vanishes because $V_4=0$. Assembling them,
 \begin{equation}
   \tilde H^{(3)} = \omega_c a\dg a +
   \begin{pmatrix}
@@ -211,132 +182,107 @@ $\{\ket{1},\ket{3},\ket{4}\}$:
   \boxed{\ \lambda = \frac{g_0\Om_c}{2\Delta}\ }
   \label{eq:H3}
 \end{equation}
-Note that the $\ket{1}$ shift came out \emph{normally ordered}, $a\dg a$ and not $a a\dg$: the
-photon is absorbed before it is re-emitted, so an empty cavity is not shifted. Had we eliminated
-$\ket{2}$ carelessly we might have written $n+1$ where the correct answer is $n$.
+That is Step~3. Two features of Eq.~\eqref{eq:pt} are worth pausing on, because both have
+consequences later. It is an \emph{outer product}, $V_mV_n\dg$, hence rank one --- the two
+light shifts and the Raman coupling are three views of one object, not three knobs. And the
+operator ordering came out right on its own: $V_1V_1\dg=g_0a\dg\,g_0a\propto a\dg a$, normally
+ordered, so an empty cavity receives no shift. Guessing the answer rather than computing it
+risks an $n+1$ where the truth is $n$.
 
-\subsection{The same result in one line}
+\subsection{This is the rotating-wave approximation again}
 
-Equation~\eqref{eq:H3} is the second-order term of the Feshbach (Schur-complement) reduction of
-the block matrix~\eqref{eq:block},
-\begin{equation}
-  H_{\rm eff}(E) = H_P + V\,(E-\Delta)^{-1}\,V\dg
-    \;\xrightarrow[\ E\to0\ ]{}\; H_P - \frac{V V\dg}{\Delta},
-  \label{eq:feshbach}
-\end{equation}
-and the outer product does the bookkeeping for us in one step:
-\begin{equation}
-  V V\dg =
-  \begin{pmatrix} g_0 a\dg \\ \Om_c/2 \\ 0\end{pmatrix}
-  \begin{pmatrix} g_0 a & \Om_c/2 & 0\end{pmatrix}
-  =\begin{pmatrix}
-     g_0^2\,a\dg a & \tfrac{g_0\Om_c}{2}a\dg & 0\\[3pt]
-     \tfrac{g_0\Om_c}{2}a & \Om_c^2/4 & 0\\[3pt]
-     0&0&0
-   \end{pmatrix}.
-  \label{eq:VVdag}
-\end{equation}
-Divide by $-\Delta$ and add $H_P$: Eq.~\eqref{eq:H3}, identically. Rank one, which is why the
-Raman coupling is not independent of the two light shifts --- a fact we return to below.
+It is worth saying plainly, because it makes Step~3 an application of Step~2 rather than a new
+idea. In both steps something oscillates fast compared with everything driving it: in Step~2 the
+counter-rotating field at $2\nu$, here the amplitude of $\ket{2}$ at $\Delta$. In both, the fast
+thing averages to zero at first order and leaves a second-order residue of size
+$(\text{amplitude})^2/(\text{frequency})$ --- which is exactly what Eq.~\eqref{eq:pt} computes,
+with $V$ the amplitude and $\Delta$ the frequency. The validity conditions (A1) and (A2) are the
+same statement twice. Appendix~\ref{app:hand} does the same elimination on the amplitude
+equations for anyone who wants to watch $\ket{2}$ become a shadow of the states that drive it.
 
-\subsection{Reading the three new terms}
+Equation~\eqref{eq:pt} is also the leading term of something exact. Keeping the energy $E$ of
+the state one is after, rather than setting it to zero, the reduction
+$H^{\rm eff}_{mn}(E)=\tilde H_{mn}+V_m(E-\Delta)^{-1}V_n\dg$ is exact to all orders; expanding
+$(E-\Delta)^{-1}$ in $E/\Delta$ returns Eq.~\eqref{eq:pt} at leading order and, at the next one,
+the error quantified in \S\ref{sec:err}.
+
+\subsection{Reading the three terms}
 
 \paragraph{$-\lambda(a\dg\sigma_{13}+a\,\sigma_{31})$, the Raman coupling.} A cavity photon is
-absorbed on $\ket{1}\!\to\!\ket{2}$ and a control photon is emitted on $\ket{2}\!\to\!\ket{3}$,
-with $\ket{2}$ visited only virtually. The product of the two matrix elements divided by the
-energy denominator is $g_0\!\cdot\!(\Om_c/2)/\Delta$. This is the term the whole scheme is
-built on, and it is \emph{first} order in each field: halving the control power halves
-$\lambda$. The overall minus sign is a phase convention ($\ket{3}\to-\ket{3}$ removes it) and we
-drop it from here on.
+absorbed on $\ket{1}\!\to\!\ket{2}$ and a control photon emitted on $\ket{2}\!\to\!\ket{3}$,
+with $\ket{2}$ visited only virtually. It is the term the whole scheme is built on, and it is
+\emph{first} order in each field: halving the control power halves $\lambda$. The minus sign is
+a phase convention ($\ket{3}\to-\ket{3}$ removes it) and we drop it.
 
-\paragraph{$-\Om_c^2/4\Delta$ on $\ket{3}$, the control light shift.} Absorbed by redefining the
-two-photon detuning, $\delta\to\delta-\Om_c^2/4\Delta$. Harmless as bookkeeping, not harmless as
-physics --- see the box at the end of this section.
+\paragraph{$-\Om_c^2/4\Delta$ on $\ket{3}$, the control light shift.} Absorbed by redefining
+$\delta\to\delta-\Om_c^2/4\Delta$. Harmless as bookkeeping, not harmless as physics --- see the
+box at the end of this section.
 
-\paragraph{$-(g_0^2/\Delta)\,a\dg a$ on $\ket{1}$, the dispersive shift.} This one multiplies
-$a\dg a$, so it is not an atomic energy at all but a shift of the \emph{cavity}. With $N$ atoms
-sitting in $\ket{1}$ it adds up:
-\begin{equation}
-  \omega_c \;\longrightarrow\; \omega_c - \frac{N g_0^2}{\Delta}
-  \;=\; \omega_c\Bigl(1 - \frac{N g_0^2}{\Delta\,\omega_c}\Bigr).
-\end{equation}
-For $N=10^6$, $g_0/2\pi=1$~MHz and $\Delta/2\pi=100$~MHz this is $2\pi\times10$~GHz, vastly
-larger than $\omega_c/2\pi\sim1$~MHz. It is not a perturbation to be neglected; it is a
-redefinition of where the cavity sits, and in the laboratory it is absorbed by locking the
-cavity to the shifted resonance. What matters for the sensor is only that it drifts with $N$
-and with $\Delta$.
+\paragraph{$-(g_0^2/\Delta)\,a\dg a$ on $\ket{1}$, the dispersive shift.} This multiplies
+$a\dg a$, so it is not an atomic energy at all but a shift of the \emph{cavity}, and with $N$
+atoms in $\ket{1}$ it adds up: $\omega_c\to\omega_c-Ng_0^2/\Delta$. For $N=10^6$,
+$g_0/2\pi=1$~MHz, $\Delta/2\pi=100$~MHz that is $2\pi\times10$~GHz against $\omega_c/2\pi\sim
+1$~MHz. It is not a perturbation to be dropped but a redefinition of where the cavity sits,
+absorbed in the laboratory by locking to the shifted resonance. What matters for the sensor is
+that it drifts with $N$ and with $\Delta$.
 
 \subsection{Keeping the loss}
 
-State $\ket{2}$ is not merely inconvenient, it radiates at $\Gamma_e/2\pi\simeq6$~MHz. Nothing
-above changes if we track that by letting the denominator go complex,
-$\Delta\to\Delta-i\Gamma_e/2$, which is the standard non-Hermitian bookkeeping for a level whose
-population leaves the system. Expanding for $|\Delta|\gg\Gamma_e$,
-\begin{equation}
-  \frac{1}{\Delta-i\Gamma_e/2} \simeq \frac{1}{\Delta} + \frac{i\Gamma_e}{2\Delta^2},
-\end{equation}
-so each entry of Eq.~\eqref{eq:VVdag} acquires an imaginary part. Two of them are the price of
-the elimination:
+$\ket{2}$ radiates at $\Gamma_e/2\pi\simeq6$~MHz. Nothing above changes if we let the
+denominator in Eq.~\eqref{eq:pt} go complex, $\Delta\to\Delta-i\Gamma_e/2$, the standard
+bookkeeping for a level whose population leaves the system. Expanding
+$(\Delta-i\Gamma_e/2)^{-1}\simeq\Delta^{-1}+i\Gamma_e/2\Delta^2$, the two diagonal paths acquire
+imaginary parts:
 \begin{equation}
   \boxed{\ \gamma_3 = \frac{\Om_c^2}{4\Delta^2}\,\Gamma_e
   \quad(\text{Rydberg state}), \qquad
   \kappa_{\rm abs} = \frac{g_0^2}{\Delta^2}\,\Gamma_e \quad(\text{cavity})\ }
   \label{eq:losses}
 \end{equation}
-Both are $\Gamma_e$ multiplied by the residual $\ket{2}$ population that the corresponding drive
-maintains, $(\Om_c/2\Delta)^2$ and $(g_0/\Delta)^2$ per intracavity photon respectively; the elimination has not
-removed the decay, only diluted it. At $\Om_c/2\pi=5$~MHz, $g_0/2\pi=1$~MHz,
-$\Delta/2\pi=100$~MHz these are $2\pi\times3.75$ and $0.60$~kHz, confirmed against the exact
-eigenvalues to better than $0.5\%$.
+Each is $\Gamma_e$ times the residual $\ket{2}$ population the corresponding drive maintains,
+$(\Om_c/2\Delta)^2$ and $(g_0/\Delta)^2$ per intracavity photon: the elimination has not removed
+the decay, only diluted it. At $\Om_c/2\pi=5$, $g_0/2\pi=1$, $\Delta/2\pi=100$~MHz these are
+$2\pi\times3.75$ and $0.60$~kHz, confirmed against the exact eigenvalues to better than $0.5\%$.
 
 The scaling looks at first like a free lunch --- $\lambda\propto\Delta^{-1}$ but
 $\gamma_3\propto\Delta^{-2}$, so detuning further seems to buy coherence faster than it costs
-coupling. It does not. Form the combination in which the $\Delta$'s and $\Om_c$'s cancel:
+coupling. It does not. Form the combination in which $\Delta$ and $\Om_c$ both cancel:
 \begin{equation}
   \boxed{\ \frac{\lambda^{2}}{\gamma_3}
   = \frac{g_0^2\Om_c^2/4\Delta^2}{\Om_c^2\Gamma_e/4\Delta^2}
   = \frac{g_0^2}{\Gamma_e}\ }
   \label{eq:invariant}
 \end{equation}
-independent of \emph{both} knobs the elimination gives us. Detuning further and raising the
-control power to compensate slides $\lambda$ and $\gamma_3$ along a line of constant
-$\lambda^2/\gamma_3$; Step~3 provides no leverage on it whatsoever. Divide by the cavity
-linewidth and, with the collective enhancement $\lambda\to\lambda\sqrt N$ at fixed single-atom
-$\gamma_3$, this is the familiar figure of merit and the only one in the problem:
-\begin{equation}
-  \frac{N\lambda^{2}}{\kappa\,\gamma_3} = \frac{N g_0^{2}}{\kappa\,\Gamma_e} = NC .
-\end{equation}
-Atom number and cavity finesse are what improve the sensor; $\Delta$ and $\Om_c$ only decide
-where on the line one sits. The cavity absorption is the exception that proves the point ---
-$\lambda^2/\kappa_{\rm abs}=\Om_c^2/4\Gamma_e$ \emph{does} reward control power, because
-$\kappa_{\rm abs}$ has no $\Om_c$ in it.
+independent of \emph{both} knobs Step~3 gives us. Detuning further and raising the control power
+to compensate slides $\lambda$ and $\gamma_3$ along a line of constant $\lambda^2/\gamma_3$.
+Divide by the cavity linewidth and, with $\lambda\to\lambda\sqrt N$ at fixed single-atom
+$\gamma_3$, this is the familiar figure of merit and the only one in the problem,
+$N\lambda^2/\kappa\gamma_3 = Ng_0^2/\kappa\Gamma_e = NC$. Atom number and cavity finesse improve
+the sensor; $\Delta$ and $\Om_c$ only decide where on the line one sits. The cavity absorption
+is the exception that proves the point --- $\lambda^2/\kappa_{\rm abs}=\Om_c^2/4\Gamma_e$
+\emph{does} reward control power, because $\kappa_{\rm abs}$ has no $\Om_c$ in it.
 
-\subsection{How good is it?}
+\subsection{How good is it, and when is it allowed?}
+\label{sec:err}
 
-The one thing dropped between Eqs.~\eqref{eq:feshbach} and~\eqref{eq:H3} is the energy
-dependence of the resolvent. Restoring it,
+Restoring the energy dependence of the resolvent,
+$(E-\Delta)^{-1}=-\Delta^{-1}(1+E/\Delta+\dots)$, gives the leading error directly:
 \begin{equation}
-  (E-\Delta)^{-1} = -\frac{1}{\Delta}\Bigl(1+\frac{E}{\Delta}+\dots\Bigr)
-  \;\Longrightarrow\;
   \boxed{\ \delta E \simeq \frac{E\,\langle V V\dg\rangle}{\Delta^{2}},
   \qquad
   \langle VV\dg\rangle = g_0^2\langle a\dg a\rangle P_1 + \frac{\Om_c^2}{4}P_3\ }
   \label{eq:err}
 \end{equation}
-with $P_1,P_3$ the populations of $\ket{1},\ket{3}$ in the state whose energy is $E$. Two
-things are worth noticing. The error is second order in $1/\Delta$ while $\lambda$ is only
-first order, so the model gets \emph{relatively} better as $\Delta$ grows even though the
-physics it describes gets weaker. And a state with no $\ket{3}$ component --- a photon with the
-atom in $\ket{1}$ --- is described far more accurately than the dressed states, since it is
-only $g_0$, not $\Om_c$, that reaches $\ket{2}$.
+with $P_1,P_3$ the populations of $\ket{1},\ket{3}$ in the state whose energy is $E$. The error
+is second order in $1/\Delta$ while $\lambda$ is only first order, so the model gets
+\emph{relatively} better as $\Delta$ grows even though the physics it describes gets weaker; and
+a state with no $\ket{3}$ component is described far more accurately than the dressed states,
+since only $g_0$, not $\Om_c$, reaches $\ket{2}$ from $\ket{1}$.
 
-Figure~\ref{fig:adiabatic} tests both statements against exact diagonalisation. The
-rotating-wave Hamiltonian~\eqref{eq:H4} conserves
+Figure~\ref{fig:adiabatic} tests both statements. Equation~\eqref{eq:H4} conserves
 $N_{\rm exc}=a\dg a+\sigma_{22}+\sigma_{33}+\sigma_{44}$, so its single-excitation sector
 $(\ket{1,n{=}1},\ket{2,0},\ket{3,0},\ket{4,0})$ is a closed $4\times4$ problem and the
-comparison needs no truncation. Panel~(a): Eq.~\eqref{eq:err} predicts the error with no
-adjustable constant, over two decades. Panel~(b): the avoided crossing between the cavity and
-the lower dressed branch, whose width is the quantity Step~3 exists to produce.
+comparison needs no truncation.
 
 \begin{figure}[t]
   \centering
@@ -352,31 +298,29 @@ the lower dressed branch, whose width is the quantity Step~3 exists to produce.
   \label{fig:adiabatic}
 \end{figure}
 
-\subsection{When is it allowed?}
-
-Collecting the conditions used above,
+Collecting the conditions,
 \begin{equation}
   |\Delta| \ \gg\ \Om_c,\quad g_0\sqrt{\langle a\dg a\rangle},\quad
   \Omu,\quad |\delta|,\quad |\omega_c|,\quad \Gamma_e .
   \tag{A2}
 \end{equation}
-The first two are the amplitudes of the source $S(t)$, the next three its turnover rates, and
-the last is the width of the state being eliminated. It is the \emph{full} list: a treatment
-that checks only $|\Delta|\gg\Om_c,\Gamma_e$ will be caught out at high intracavity photon
-number, where $g_0\sqrt{\langle n\rangle}$ creeps up on $\Delta$. With
-$\Delta/2\pi=100$~MHz and $g_0/2\pi=1$~MHz the elimination survives to
-$\langle n\rangle\sim10^3$ and no further.
+The first two are the amplitudes reaching $\ket{2}$, the next three the rates at which they
+turn over, the last the width of the state being eliminated. It is the \emph{full} list: a
+treatment that checks only $|\Delta|\gg\Om_c,\Gamma_e$ is caught out at high intracavity photon
+number, where $g_0\sqrt{\langle n\rangle}$ creeps up on $\Delta$. At $\Delta/2\pi=100$ and
+$g_0/2\pi=1$~MHz the elimination survives to $\langle n\rangle\sim10^3$ and no further.
 
 \begin{keybox}
-\textbf{Where the dominant systematic comes from.} $VV\dg$ in Eq.~\eqref{eq:VVdag} has rank one,
-so the Raman coupling and the light shift are not independent knobs: $\lambda\propto\Om_c$ and
-the shift $\propto\Om_c^2$ both track the control-laser intensity, and the shift adds
-\emph{directly} to $\delta$ --- the same channel the measurand uses. Since $\Om_c^2\propto I$, a
-fractional intensity fluctuation $\varepsilon$ moves $\delta$ by
-$\varepsilon\,\Om_c^2/4\Delta$, at our numbers $\varepsilon\times2\pi\times62$~kHz. Control-laser intensity noise is therefore
+\textbf{Where the dominant systematic comes from.} $V_mV_n\dg$ has rank one, so the Raman
+coupling and the light shift are not independent knobs: $\lambda\propto\Om_c$ and the shift
+$\propto\Om_c^2$ both track the control-laser intensity, and the shift adds \emph{directly} to
+$\delta$ --- the same channel the measurand uses. Since $\Om_c^2\propto I$, a fractional
+intensity fluctuation $\varepsilon$ moves $\delta$ by $\varepsilon\,\Om_c^2/4\Delta$, at our
+numbers $\varepsilon\times2\pi\times62$~kHz. Control-laser intensity noise is therefore
 structurally indistinguishable from signal, and no amount of care with the microwave will fix
 it.
 \end{keybox}
+
 \section{Step 4: dress the Rydberg pair}
 
 The lower-right block of Eq.~\eqref{eq:H3} is a two-level problem on its own:
@@ -420,5 +364,56 @@ Equation~\eqref{eq:core} is where this note stops. It is still excitation-number
 so on its own it radiates nothing; turning it into a Dicke model requires counter-rotating
 terms $a\dg b\dg+ab$ from a second drive tone, and that, together with the
 Holstein--Primakoff step and the superradiant threshold, is the subject of the companion note.
+
+
+\appendix
+\section{The same elimination by hand}
+\label{app:hand}
+
+Equation~\eqref{eq:pt} is quicker, but it is worth seeing once where it comes from. Expand the
+state as $\ket{\Psi}=\sum_j\ket{j}\otimes\ket{\phi_j}$ with $\ket{\phi_j}$ (unnormalised) cavity
+states. Reading the rows of Eq.~\eqref{eq:H4},
+\begin{align}
+  i\,\partial_t\ket{\phi_1} &= \omega_c a\dg a\ket{\phi_1} + g_0\,a\dg\ket{\phi_2},
+    \label{eq:c1}\\
+  i\,\partial_t\ket{\phi_2} &= \omega_c a\dg a\ket{\phi_2} + \Delta\ket{\phi_2}
+     + g_0\,a\ket{\phi_1} + \tfrac{\Om_c}{2}\ket{\phi_3},
+    \label{eq:c2}\\
+  i\,\partial_t\ket{\phi_3} &= \omega_c a\dg a\ket{\phi_3} + \delta\ket{\phi_3}
+     + \tfrac{\Om_c}{2}\ket{\phi_2} + \tfrac{\Omu}{2}\ket{\phi_4},
+    \label{eq:c3}
+\end{align}
+and a fourth line for $\ket{\phi_4}$ that never involves $\ket{\phi_2}$. Only
+Eq.~\eqref{eq:c2} carries a large coefficient. Remove the slow diagonal terms with
+$\ket{\phi_j}=e^{-i\omega_c a\dg a\,t}e^{-i\epsilon_j t}\ket{\chi_j}$,
+$\epsilon_{1,3,4}=0,\delta,\delta+\Dmu$, and it becomes
+\begin{equation}
+  i\,\partial_t\ket{\chi_2} = \Delta\ket{\chi_2}
+   + \underbrace{g_0\,a\,e^{-i\omega_c t}\ket{\chi_1}
+     + \tfrac{\Om_c}{2}e^{-i\delta t}\ket{\chi_3}}_{\textstyle S(t)} ,
+\end{equation}
+a driven first-order equation whose source has amplitudes $g_0\sqrt{\langle n\rangle}$,
+$\Om_c/2$ and turns over at rates $\omega_c,\delta$ --- condition (A2), item by item. When
+$|\Delta|$ dominates all of them, $\ket{\chi_2}$ never builds up: it locks to the value that
+makes the right-hand side vanish, $\ket{\chi_2}\simeq-S(t)/\Delta$, i.e.
+\begin{equation}
+  \ket{\phi_2} \;\simeq\; -\frac{1}{\Delta}
+    \Bigl(g_0\,a\ket{\phi_1} + \tfrac{\Om_c}{2}\ket{\phi_3}\Bigr).
+  \label{eq:slave}
+\end{equation}
+$\ket{2}$ is no longer a degree of freedom; it is a shadow of the two states that drive it.
+Substituting into Eq.~\eqref{eq:c1},
+\begin{equation}
+  g_0\,a\dg\ket{\phi_2} = -\frac{g_0^2}{\Delta}\,a\dg a\ket{\phi_1}
+      - \frac{g_0\Om_c}{2\Delta}\,a\dg\ket{\phi_3},
+\end{equation}
+and into Eq.~\eqref{eq:c3},
+\begin{equation}
+  \tfrac{\Om_c}{2}\ket{\phi_2} = -\frac{g_0\Om_c}{2\Delta}\,a\ket{\phi_1}
+      - \frac{\Om_c^{2}}{4\Delta}\ket{\phi_3}.
+\end{equation}
+Four terms: the same four rows of the table in \S4.1, and the same
+Eq.~\eqref{eq:H3}. The correspondence is exact --- Eq.~\eqref{eq:slave} is
+$\ket{\phi_2}=-\sum_n V_n\dg\ket{\phi_n}/\Delta$, and feeding it back multiplies by $V_m$.
 
 \end{document}
